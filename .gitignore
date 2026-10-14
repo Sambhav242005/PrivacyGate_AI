@@ -4,8 +4,34 @@ var/
 .env
 node_modules/
 __pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
 
 apps/web/.next/
 apps/web/test-results/
+apps/web/coverage/
 playwright-report/
+playwright/.auth/
+*.tsbuildinfo
+
+# Foundry
+packages/contracts/out/
+packages/contracts/cache/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
 
