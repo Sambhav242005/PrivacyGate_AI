@@ -1,0 +1,813 @@
+{
+  "/": [
+    {
+      "tag": "a",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Owner dashboard",
+      "href": "/dashboard"
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Owner dashboard",
+      "href": ""
+    },
+    {
+      "tag": "a",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Subscriber insights",
+      "href": "/insights"
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Subscriber insights",
+      "href": ""
+    }
+  ],
+  "/login": [
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Connect wallet and sign in",
+      "href": ""
+    },
+    {
+      "tag": "a",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Continue to owner dashboard →",
+      "href": "/(owner)/dashboard"
+    }
+  ],
+  "/dashboard": [
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Connect wallet",
+      "href": ""
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Resource ID",
+      "placeholder": "",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Device ID",
+      "placeholder": "device_id (UUID)",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Device name",
+      "placeholder": "name",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Ed25519 public key",
+      "placeholder": "ed25519_public_key_b64 (32 bytes, standard base64)",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Enroll device",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Refresh devices",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Load telemetry",
+      "href": ""
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Recipient wallet",
+      "placeholder": "",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Expiry unix seconds",
+      "placeholder": "",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Contract address",
+      "placeholder": "PermissionRegistry contract 0x…",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Transaction hash",
+      "placeholder": "tx hash for manual sync 0x…",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Create policy draft",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Refresh policies",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Revoke grant on-chain",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Load on-chain events",
+      "href": ""
+    }
+  ],
+  "/insights": [
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Connect wallet",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Generate + enroll new key",
+      "href": ""
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Existing private key",
+      "placeholder": "Or paste existing 32-byte base64 private key",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Import for this session",
+      "href": ""
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Resource ID",
+      "placeholder": "",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Refresh",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "Decrypt all",
+      "href": ""
+    }
+  ],
+  "/api-docs": [
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "aria": "Filter endpoints",
+      "placeholder": "Filter endpoints (method, path, text)…",
+      "text": "",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "POST/v1/auth/challenge",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "POST/v1/auth/logout",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "POST/v1/auth/verify",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "GET/v1/me",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "GET/v1/devices",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "POST/v1/devices",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "POST/v1/keys",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "GET/v1/resources/{resource_id}/telemetry",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "GET/v1/policies",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "POST/v1/policies",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "POST/v1/policies/{policy_id}/sync",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "GET/v1/insights",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "GET/v1/audit/permission-events",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "GET/v1/health",
+      "href": ""
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "GET/v1/ready",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "request body (ChallengeReq) — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "200 Successful Response",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "422 Validation Error",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "array of object",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "array of string | integer",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "option 1: string",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "option 2: integer",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "generated sample request — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "ChallengeReq — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "DeviceEnrollRequest — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "HTTPValidationError — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "array of object",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "array of string | integer",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "option 1: string",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "option 2: integer",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "KeyEnrollReq — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "option 1: string",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "option 2: null",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "PolicyCreateBody — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "array of const \"MACHINE_ANOMALY\"",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "array of string",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "SyncReq — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "ValidationError — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "array of string | integer",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "option 1: string",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "option 2: integer",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "VerifyReq — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "SensorTelemetryV1 — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "SignedTelemetryV1 — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "InsightV1 — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "PolicyManifestV1 — expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "array of const \"MACHINE_ANOMALY\"",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "expand",
+      "href": ""
+    },
+    {
+      "tag": "summary",
+      "type": "",
+      "role": "",
+      "aria": "",
+      "placeholder": "",
+      "text": "array of string",
+      "href": ""
+    }
+  ]
+}

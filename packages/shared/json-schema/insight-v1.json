@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacygate.ai/schemas/insight-v1.json",
+  "$title": "InsightV1",
+  "description": "The only subscriber-decryptable application payload. Exactly 5 fields; no raw telemetry.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "event_type", "severity", "observed_at", "model_version"],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "event_type": { "const": "MACHINE_ANOMALY" },
+    "severity": { "enum": ["LOW", "MEDIUM", "HIGH"] },
+    "observed_at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z$"
+    },
+    "model_version": { "type": "string", "minLength": 1, "maxLength": 64 }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacygate.ai/schemas/envelope-v1.json",
+  "$title": "EncryptedDeliveryV1",
+  "description": "Ciphertext-only per-recipient delivery. Never carries plaintext insight or raw telemetry.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["delivery_id", "schema_version", "resource_id", "recipient_wallet", "policy_version", "key_epoch", "ephemeral_public_key_b64", "nonce_b64", "aad_b64", "ciphertext_b64"],
+  "properties": {
+    "delivery_id": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "schema_version": { "const": 1 },
+    "resource_id": {
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "recipient_wallet": {
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{40}$"
+    },
+    "policy_version": { "type": "integer", "minimum": 1 },
+    "key_epoch": { "type": "integer", "minimum": 0 },
+    "ephemeral_public_key_b64": {
+      "type": "string",
+      "description": "RFC4648 standard base64 of exactly 32 X25519 ephemeral public-key bytes"
+    },
+    "nonce_b64": {
+      "type": "string",
+      "description": "RFC4648 standard base64 of exactly 12 AES-GCM nonce bytes"
+    },
+    "aad_b64": {
+      "type": "string",
+      "description": "RFC4648 standard base64 of canonical AAD JSON (schema_version, delivery_id, event_id, resource_id, recipient_wallet, policy_version, key_epoch)"
+    },
+    "ciphertext_b64": {
+      "type": "string",
+      "minLength": 1,
+      "description": "RFC4648 standard base64 of AES-GCM ciphertext (includes auth tag)"
+    }
+  }
+}

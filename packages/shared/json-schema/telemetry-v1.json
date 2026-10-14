@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacygate.ai/schemas/telemetry-v1.json",
+  "title": "SensorTelemetryV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["temp_c", "vibration_mm_s", "rpm"],
+  "properties": {
+    "temp_c": { "type": "number", "minimum": -40, "maximum": 200 },
+    "vibration_mm_s": { "type": "number", "minimum": 0, "maximum": 100 },
+    "rpm": { "type": "integer", "minimum": 0, "maximum": 30000 }
+  }
+}

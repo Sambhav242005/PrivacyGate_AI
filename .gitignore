@@ -1,0 +1,6 @@
+.opencode/
+.serena/
+var/
+.env
+node_modules/
+__pycache__/

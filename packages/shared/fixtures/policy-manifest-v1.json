@@ -1,0 +1,1 @@
+{"allowed_event_types":["MACHINE_ANOMALY"],"allowed_fields":["event_id","event_type","model_version","observed_at","severity"],"expires_at_unix":1800000000,"policy_revision":1,"recipient_wallet_lowercase":"0x2222222222222222222222222222222222222222","resource_id":"0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","scope":"READ_INSIGHT"}

@@ -1,0 +1,1181 @@
+{
+ "generated_at": "2026-10-14T14:24:44.698035+00:00",
+ "source": "privacygate.api.main:create_app().openapi()",
+ "openapi": {
+  "openapi": "3.1.0",
+  "info": {
+   "title": "PrivacyGate AI gateway",
+   "version": "0.1.0"
+  },
+  "paths": {
+   "/v1/auth/challenge": {
+    "post": {
+     "summary": "Challenge",
+     "operationId": "challenge_v1_auth_challenge_post",
+     "requestBody": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ChallengeReq"
+        }
+       }
+      },
+      "required": true
+     },
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Response Challenge V1 Auth Challenge Post"
+         }
+        }
+       }
+      },
+      "422": {
+       "description": "Validation Error",
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/HTTPValidationError"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/auth/verify": {
+    "post": {
+     "summary": "Verify",
+     "operationId": "verify_v1_auth_verify_post",
+     "requestBody": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/VerifyReq"
+        }
+       }
+      },
+      "required": true
+     },
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Response Verify V1 Auth Verify Post"
+         }
+        }
+       }
+      },
+      "422": {
+       "description": "Validation Error",
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/HTTPValidationError"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/me": {
+    "get": {
+     "summary": "Me",
+     "operationId": "me_v1_me_get",
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Response Me V1 Me Get"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/auth/logout": {
+    "post": {
+     "summary": "Logout",
+     "operationId": "logout_v1_auth_logout_post",
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Response Logout V1 Auth Logout Post"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/devices": {
+    "get": {
+     "summary": "List Devices",
+     "operationId": "list_devices_v1_devices_get",
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Response List Devices V1 Devices Get"
+         }
+        }
+       }
+      }
+     }
+    },
+    "post": {
+     "summary": "Enroll Device",
+     "operationId": "enroll_device_v1_devices_post",
+     "requestBody": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/DeviceEnrollRequest"
+        }
+       }
+      },
+      "required": true
+     },
+     "responses": {
+      "201": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Response Enroll Device V1 Devices Post"
+         }
+        }
+       }
+      },
+      "422": {
+       "description": "Validation Error",
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/HTTPValidationError"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/resources/{resource_id}/telemetry": {
+    "get": {
+     "summary": "Owner Telemetry",
+     "description": "Owner-only decrypt-on-read over Repository ciphertext rows.",
+     "operationId": "owner_telemetry_v1_resources__resource_id__telemetry_get",
+     "parameters": [
+      {
+       "name": "resource_id",
+       "in": "path",
+       "required": true,
+       "schema": {
+        "type": "string",
+        "title": "Resource Id"
+       }
+      },
+      {
+       "name": "limit",
+       "in": "query",
+       "required": false,
+       "schema": {
+        "type": "integer",
+        "default": 100,
+        "title": "Limit"
+       }
+      },
+      {
+       "name": "cursor",
+       "in": "query",
+       "required": false,
+       "schema": {
+        "anyOf": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "title": "Cursor"
+       }
+      }
+     ],
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "additionalProperties": true,
+          "title": "Response Owner Telemetry V1 Resources  Resource Id  Telemetry Get"
+         }
+        }
+       }
+      },
+      "422": {
+       "description": "Validation Error",
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/HTTPValidationError"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/keys": {
+    "post": {
+     "summary": "Enroll Key",
+     "operationId": "enroll_key_v1_keys_post",
+     "requestBody": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/KeyEnrollReq"
+        }
+       }
+      },
+      "required": true
+     },
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Response Enroll Key V1 Keys Post"
+         }
+        }
+       }
+      },
+      "422": {
+       "description": "Validation Error",
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/HTTPValidationError"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/policies": {
+    "post": {
+     "summary": "Create Policy",
+     "operationId": "create_policy_v1_policies_post",
+     "requestBody": {
+      "required": true,
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PolicyCreateBody"
+        }
+       }
+      }
+     },
+     "responses": {
+      "201": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "additionalProperties": true,
+          "title": "Response Create Policy V1 Policies Post"
+         }
+        }
+       }
+      },
+      "422": {
+       "description": "Validation Error",
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/HTTPValidationError"
+         }
+        }
+       }
+      }
+     }
+    },
+    "get": {
+     "summary": "List Policies",
+     "operationId": "list_policies_v1_policies_get",
+     "parameters": [
+      {
+       "name": "resource_id",
+       "in": "query",
+       "required": false,
+       "schema": {
+        "anyOf": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "title": "Resource Id"
+       }
+      }
+     ],
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "additionalProperties": true,
+          "title": "Response List Policies V1 Policies Get"
+         }
+        }
+       }
+      },
+      "422": {
+       "description": "Validation Error",
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/HTTPValidationError"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/policies/{policy_id}/sync": {
+    "post": {
+     "summary": "Sync Policy Route",
+     "operationId": "sync_policy_route_v1_policies__policy_id__sync_post",
+     "parameters": [
+      {
+       "name": "policy_id",
+       "in": "path",
+       "required": true,
+       "schema": {
+        "type": "string",
+        "title": "Policy Id"
+       }
+      }
+     ],
+     "requestBody": {
+      "required": true,
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SyncReq"
+        }
+       }
+      }
+     },
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "additionalProperties": true,
+          "title": "Response Sync Policy Route V1 Policies  Policy Id  Sync Post"
+         }
+        }
+       }
+      },
+      "422": {
+       "description": "Validation Error",
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/HTTPValidationError"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/insights": {
+    "get": {
+     "summary": "Get Insights",
+     "operationId": "get_insights_v1_insights_get",
+     "parameters": [
+      {
+       "name": "resource_id",
+       "in": "query",
+       "required": true,
+       "schema": {
+        "type": "string",
+        "title": "Resource Id"
+       }
+      },
+      {
+       "name": "limit",
+       "in": "query",
+       "required": false,
+       "schema": {
+        "type": "integer",
+        "default": 50,
+        "title": "Limit"
+       }
+      },
+      {
+       "name": "cursor",
+       "in": "query",
+       "required": false,
+       "schema": {
+        "anyOf": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "title": "Cursor"
+       }
+      }
+     ],
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "additionalProperties": true,
+          "title": "Response Get Insights V1 Insights Get"
+         }
+        }
+       }
+      },
+      "422": {
+       "description": "Validation Error",
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/HTTPValidationError"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/audit/permission-events": {
+    "get": {
+     "summary": "Permission Events",
+     "operationId": "permission_events_v1_audit_permission_events_get",
+     "parameters": [
+      {
+       "name": "resource_id",
+       "in": "query",
+       "required": true,
+       "schema": {
+        "type": "string",
+        "title": "Resource Id"
+       }
+      },
+      {
+       "name": "limit",
+       "in": "query",
+       "required": false,
+       "schema": {
+        "type": "integer",
+        "default": 50,
+        "title": "Limit"
+       }
+      },
+      {
+       "name": "cursor",
+       "in": "query",
+       "required": false,
+       "schema": {
+        "anyOf": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "title": "Cursor"
+       }
+      }
+     ],
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "additionalProperties": true,
+          "title": "Response Permission Events V1 Audit Permission Events Get"
+         }
+        }
+       }
+      },
+      "422": {
+       "description": "Validation Error",
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/HTTPValidationError"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/health": {
+    "get": {
+     "summary": "Health",
+     "operationId": "health_v1_health_get",
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Response Health V1 Health Get"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "/v1/ready": {
+    "get": {
+     "summary": "Ready",
+     "operationId": "ready_v1_ready_get",
+     "responses": {
+      "200": {
+       "description": "Successful Response",
+       "content": {
+        "application/json": {
+         "schema": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Response Ready V1 Ready Get"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "components": {
+   "schemas": {
+    "ChallengeReq": {
+     "properties": {
+      "wallet_address": {
+       "type": "string",
+       "title": "Wallet Address"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "wallet_address"
+     ],
+     "title": "ChallengeReq"
+    },
+    "DeviceEnrollRequest": {
+     "properties": {
+      "resource_id": {
+       "type": "string",
+       "pattern": "^0x[0-9a-f]{64}$",
+       "title": "Resource Id"
+      },
+      "device_id": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Device Id"
+      },
+      "name": {
+       "type": "string",
+       "maxLength": 128,
+       "minLength": 1,
+       "title": "Name"
+      },
+      "ed25519_public_key_b64": {
+       "type": "string",
+       "title": "Ed25519 Public Key B64"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "resource_id",
+      "device_id",
+      "name",
+      "ed25519_public_key_b64"
+     ],
+     "title": "DeviceEnrollRequest",
+     "description": "PG-010 owner device enrollment. No private key ever accepted."
+    },
+    "HTTPValidationError": {
+     "properties": {
+      "detail": {
+       "items": {
+        "$ref": "#/components/schemas/ValidationError"
+       },
+       "type": "array",
+       "title": "Detail"
+      }
+     },
+     "type": "object",
+     "title": "HTTPValidationError"
+    },
+    "KeyEnrollReq": {
+     "properties": {
+      "x25519_public_key_b64": {
+       "type": "string",
+       "title": "X25519 Public Key B64"
+      },
+      "wallet_address": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Wallet Address"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "x25519_public_key_b64"
+     ],
+     "title": "KeyEnrollReq"
+    },
+    "PolicyCreateBody": {
+     "properties": {
+      "resource_id": {
+       "type": "string",
+       "pattern": "^0x[0-9a-f]{64}$",
+       "title": "Resource Id"
+      },
+      "recipient_wallet_lowercase": {
+       "type": "string",
+       "pattern": "^0x[0-9a-f]{40}$",
+       "title": "Recipient Wallet Lowercase"
+      },
+      "scope": {
+       "type": "string",
+       "const": "READ_INSIGHT",
+       "title": "Scope"
+      },
+      "allowed_event_types": {
+       "items": {
+        "type": "string",
+        "const": "MACHINE_ANOMALY"
+       },
+       "type": "array",
+       "maxItems": 1,
+       "minItems": 1,
+       "title": "Allowed Event Types"
+      },
+      "allowed_fields": {
+       "items": {
+        "type": "string"
+       },
+       "type": "array",
+       "maxItems": 5,
+       "minItems": 5,
+       "title": "Allowed Fields"
+      },
+      "expires_at_unix": {
+       "type": "integer",
+       "exclusiveMinimum": 0.0,
+       "title": "Expires At Unix"
+      },
+      "policy_revision": {
+       "type": "integer",
+       "exclusiveMinimum": 0.0,
+       "title": "Policy Revision"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "resource_id",
+      "recipient_wallet_lowercase",
+      "scope",
+      "allowed_event_types",
+      "allowed_fields",
+      "expires_at_unix",
+      "policy_revision"
+     ],
+     "title": "PolicyCreateBody",
+     "description": "POST /v1/policies input: PolicyManifestV1 plus additive aliases.\n\n- Accepts API.md ``recipient_wallet`` (any hex case) as an alias of\n  ``recipient_wallet_lowercase``; normalizes to lowercase.\n- Defaults missing ``policy_revision`` to 1 (API.md omits it for new drafts).\n- If both wallet fields are present they must agree (case-insensitive)."
+    },
+    "SyncReq": {
+     "properties": {
+      "transaction_hash": {
+       "type": "string",
+       "title": "Transaction Hash"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "transaction_hash"
+     ],
+     "title": "SyncReq"
+    },
+    "ValidationError": {
+     "properties": {
+      "loc": {
+       "items": {
+        "anyOf": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "integer"
+         }
+        ]
+       },
+       "type": "array",
+       "title": "Location"
+      },
+      "msg": {
+       "type": "string",
+       "title": "Message"
+      },
+      "type": {
+       "type": "string",
+       "title": "Error Type"
+      },
+      "input": {
+       "title": "Input"
+      },
+      "ctx": {
+       "type": "object",
+       "title": "Context"
+      }
+     },
+     "type": "object",
+     "required": [
+      "loc",
+      "msg",
+      "type"
+     ],
+     "title": "ValidationError"
+    },
+    "VerifyReq": {
+     "properties": {
+      "challenge_id": {
+       "type": "string",
+       "title": "Challenge Id"
+      },
+      "signature_hex": {
+       "type": "string",
+       "title": "Signature Hex"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "challenge_id",
+      "signature_hex"
+     ],
+     "title": "VerifyReq"
+    }
+   }
+  }
+ },
+ "dto_schemas": {
+  "SensorTelemetryV1": {
+   "additionalProperties": false,
+   "properties": {
+    "temp_c": {
+     "maximum": 200,
+     "minimum": -40,
+     "title": "Temp C",
+     "type": "number"
+    },
+    "vibration_mm_s": {
+     "maximum": 100,
+     "minimum": 0,
+     "title": "Vibration Mm S",
+     "type": "number"
+    },
+    "rpm": {
+     "maximum": 30000,
+     "minimum": 0,
+     "title": "Rpm",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "temp_c",
+    "vibration_mm_s",
+    "rpm"
+   ],
+   "title": "SensorTelemetryV1",
+   "type": "object"
+  },
+  "SignedTelemetryV1": {
+   "$defs": {
+    "SensorTelemetryV1": {
+     "additionalProperties": false,
+     "properties": {
+      "temp_c": {
+       "maximum": 200,
+       "minimum": -40,
+       "title": "Temp C",
+       "type": "number"
+      },
+      "vibration_mm_s": {
+       "maximum": 100,
+       "minimum": 0,
+       "title": "Vibration Mm S",
+       "type": "number"
+      },
+      "rpm": {
+       "maximum": 30000,
+       "minimum": 0,
+       "title": "Rpm",
+       "type": "integer"
+      }
+     },
+     "required": [
+      "temp_c",
+      "vibration_mm_s",
+      "rpm"
+     ],
+     "title": "SensorTelemetryV1",
+     "type": "object"
+    }
+   },
+   "additionalProperties": false,
+   "properties": {
+    "schema_version": {
+     "const": 1,
+     "title": "Schema Version",
+     "type": "integer"
+    },
+    "device_id": {
+     "format": "uuid",
+     "title": "Device Id",
+     "type": "string"
+    },
+    "resource_id": {
+     "pattern": "^0x[0-9a-f]{64}$",
+     "title": "Resource Id",
+     "type": "string"
+    },
+    "sequence": {
+     "exclusiveMinimum": 0,
+     "title": "Sequence",
+     "type": "integer"
+    },
+    "issued_at": {
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$",
+     "title": "Issued At",
+     "type": "string"
+    },
+    "telemetry": {
+     "$ref": "#/$defs/SensorTelemetryV1"
+    },
+    "signature_b64": {
+     "pattern": "^[A-Za-z0-9+/]{86}==$",
+     "title": "Signature B64",
+     "type": "string"
+    }
+   },
+   "required": [
+    "schema_version",
+    "device_id",
+    "resource_id",
+    "sequence",
+    "issued_at",
+    "telemetry",
+    "signature_b64"
+   ],
+   "title": "SignedTelemetryV1",
+   "type": "object"
+  },
+  "InsightV1": {
+   "additionalProperties": false,
+   "description": "Only subscriber-decryptable payload. Exactly 5 fields.",
+   "properties": {
+    "event_id": {
+     "format": "uuid",
+     "title": "Event Id",
+     "type": "string"
+    },
+    "event_type": {
+     "const": "MACHINE_ANOMALY",
+     "title": "Event Type",
+     "type": "string"
+    },
+    "severity": {
+     "enum": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+     ],
+     "title": "Severity",
+     "type": "string"
+    },
+    "observed_at": {
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$",
+     "title": "Observed At",
+     "type": "string"
+    },
+    "model_version": {
+     "maxLength": 64,
+     "minLength": 1,
+     "title": "Model Version",
+     "type": "string"
+    }
+   },
+   "required": [
+    "event_id",
+    "event_type",
+    "severity",
+    "observed_at",
+    "model_version"
+   ],
+   "title": "InsightV1",
+   "type": "object"
+  },
+  "PolicyManifestV1": {
+   "additionalProperties": false,
+   "properties": {
+    "resource_id": {
+     "pattern": "^0x[0-9a-f]{64}$",
+     "title": "Resource Id",
+     "type": "string"
+    },
+    "recipient_wallet_lowercase": {
+     "pattern": "^0x[0-9a-f]{40}$",
+     "title": "Recipient Wallet Lowercase",
+     "type": "string"
+    },
+    "scope": {
+     "const": "READ_INSIGHT",
+     "title": "Scope",
+     "type": "string"
+    },
+    "allowed_event_types": {
+     "items": {
+      "const": "MACHINE_ANOMALY",
+      "type": "string"
+     },
+     "maxItems": 1,
+     "minItems": 1,
+     "title": "Allowed Event Types",
+     "type": "array"
+    },
+    "allowed_fields": {
+     "items": {
+      "type": "string"
+     },
+     "maxItems": 5,
+     "minItems": 5,
+     "title": "Allowed Fields",
+     "type": "array"
+    },
+    "expires_at_unix": {
+     "exclusiveMinimum": 0,
+     "title": "Expires At Unix",
+     "type": "integer"
+    },
+    "policy_revision": {
+     "exclusiveMinimum": 0,
+     "title": "Policy Revision",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "resource_id",
+    "recipient_wallet_lowercase",
+    "scope",
+    "allowed_event_types",
+    "allowed_fields",
+    "expires_at_unix",
+    "policy_revision"
+   ],
+   "title": "PolicyManifestV1",
+   "type": "object"
+  }
+ },
+ "endpoint_notes": {
+  "POST /v1/auth/challenge": {
+   "auth": "public",
+   "response_note": "Challenge text the wallet signs with EIP-191 personal_sign. Single-use, 5 minute TTL.",
+   "errors": [
+    "INVALID_INPUT (400)",
+    "HTTPValidationError (422)"
+   ]
+  },
+  "POST /v1/auth/verify": {
+   "auth": "challenge signature (consumes the challenge atomically)",
+   "response_note": "Sets HttpOnly pg_session cookie. Returns wallet address and CSRF token.",
+   "errors": [
+    "NOT_AUTHENTICATED (401)"
+   ]
+  },
+  "GET /v1/me": {
+   "auth": "pg_session cookie",
+   "response_note": "Wallet address, roles and session expiry. No keys.",
+   "errors": [
+    "NOT_AUTHENTICATED (401)"
+   ]
+  },
+  "POST /v1/auth/logout": {
+   "auth": "pg_session cookie if present (always 200)",
+   "response_note": "Expires the cookie and server session.",
+   "errors": []
+  },
+  "POST /v1/devices": {
+   "auth": "pg_session cookie + confirmed on-chain ownerOf(resource_id)",
+   "response_note": "Untyped map: resource_id, device_id, name, registered_at, status. Never accepts a private key.",
+   "errors": [
+    "NOT_AUTHENTICATED (401)",
+    "POLICY_DENIED (403)",
+    "ALREADY_EXISTS (409)",
+    "HTTPValidationError (422)",
+    "AUTHZ_UNAVAILABLE (503)"
+   ]
+  },
+  "GET /v1/devices": {
+   "auth": "pg_session cookie (caller's own devices only)",
+   "response_note": "List of the caller's enrolled devices.",
+   "errors": [
+    "NOT_AUTHENTICATED (401)"
+   ]
+  },
+  "GET /v1/resources/{resource_id}/telemetry": {
+   "auth": "pg_session cookie + confirmed on-chain owner (owner only, fails closed)",
+   "response_note": "Decrypted telemetry rows (device_id, sequence, issued_at, temp_c, vibration_mm_s, rpm), paged by cursor.",
+   "errors": [
+    "INVALID_INPUT (400)",
+    "NOT_AUTHENTICATED (401)",
+    "POLICY_DENIED (403)",
+    "INTERNAL (500)",
+    "AUTHZ_UNAVAILABLE (503)"
+   ]
+  },
+  "POST /v1/keys": {
+   "auth": "pg_session cookie (key bound to the authenticated wallet)",
+   "response_note": "Registered wallet address, key id and timestamp. Rotation invalidates unread envelopes.",
+   "errors": [
+    "INVALID_INPUT (400)",
+    "NOT_AUTHENTICATED (401)",
+    "POLICY_DENIED (403)"
+   ]
+  },
+  "POST /v1/policies": {
+   "auth": "pg_session cookie + confirmed on-chain ownerOf(resource_id)",
+   "response_note": "Draft id, revision, canonical policy digest and DRAFT status. Grant still requires an owner-signed on-chain transaction.",
+   "errors": [
+    "NOT_AUTHENTICATED (401)",
+    "POLICY_DENIED (403)",
+    "HTTPValidationError (422)",
+    "AUTHZ_UNAVAILABLE (503)"
+   ]
+  },
+  "POST /v1/policies/{policy_id}/sync": {
+   "auth": "pg_session cookie + confirmed on-chain owner of the policy resource",
+   "response_note": "ACTIVE or REVOKED from confirmed chain state (never from request intent), with contract version and block.",
+   "errors": [
+    "INVALID_INPUT (400)",
+    "NOT_AUTHENTICATED (401)",
+    "POLICY_DENIED (403)",
+    "RESOURCE_NOT_FOUND (404)",
+    "TX_NOT_CONFIRMED (409)",
+    "CHAIN_MISMATCH (503)",
+    "AUTHZ_UNAVAILABLE (503)"
+   ]
+  },
+  "GET /v1/policies": {
+   "auth": "pg_session cookie (caller's own drafts only)",
+   "response_note": "Local drafts and chain-sync status. Never shared with other wallets.",
+   "errors": [
+    "NOT_AUTHENTICATED (401)"
+   ]
+  },
+  "GET /v1/insights": {
+   "auth": "pg_session cookie + fresh confirmed READ_INSIGHT grant on every read",
+   "response_note": "Per-recipient encrypted envelopes only (ciphertext + AAD). 410 when the grant expired. 503 with zero disclosure on chain outage.",
+   "errors": [
+    "INVALID_INPUT (400)",
+    "NOT_AUTHENTICATED (401)",
+    "POLICY_DENIED (403/410)",
+    "RESOURCE_NOT_FOUND (404)",
+    "KEY_NOT_REGISTERED (409)",
+    "AUTHZ_UNAVAILABLE (503)"
+   ]
+  },
+  "GET /v1/audit/permission-events": {
+   "auth": "pg_session cookie + confirmed on-chain owner",
+   "response_note": "Confirmed grant/revoke summaries. No policy JSON or telemetry.",
+   "errors": [
+    "INVALID_INPUT (400)",
+    "NOT_AUTHENTICATED (401)",
+    "POLICY_DENIED (403)",
+    "AUTHZ_UNAVAILABLE (503)"
+   ]
+  },
+  "GET /v1/health": {
+   "auth": "public",
+   "response_note": "Process liveness only.",
+   "errors": []
+  },
+  "GET /v1/ready": {
+   "auth": "public",
+   "response_note": "Dependency states (gateway, database, mqtt, chain) without secret config.",
+   "errors": []
+  }
+ }
+}
