@@ -14,8 +14,9 @@ import time
 from datetime import datetime, timezone
 from typing import Any
 
+from privacygate.domain.policy import canonical_json
 from privacygate.domain.schemas import SignedTelemetryV1
-from privacygate.ingest.signatures import canonical, unsigned_of, verify_message
+from privacygate.ingest.signatures import unsigned_of, verify_message
 from privacygate.security.crypto_store import build_aad, encrypt
 
 MAX_PAYLOAD_BYTES = 4096
@@ -88,7 +89,7 @@ def ingest_message(topic: str, payload: bytes, repo: Any,
     aad = build_aad(device_id=str(reading.device_id),
                     sequence=reading.sequence,
                     resource_id=str(reading.resource_id))
-    nonce, ciphertext = encrypt(data_key, aad, canonical(unsigned_of(msg)))
+    nonce, ciphertext = encrypt(data_key, aad, canonical_json(unsigned_of(msg)))
     try:
         record = repo.save_reading(
             device_id=str(reading.device_id), sequence=reading.sequence,

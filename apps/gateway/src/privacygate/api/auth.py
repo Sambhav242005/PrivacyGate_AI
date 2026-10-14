@@ -44,13 +44,6 @@ def current_wallet(request: Request) -> str:
             if header and header != wallet.lower():
                 raise _unauthenticated()
             return wallet.lower()
-        if WALLET_RE.match(cookie) and sessions.get(cookie.lower()):
-            # dev-skeleton compat: cookie carries wallet, sessions[wallet] set
-            if header and header != cookie.lower():
-                raise _unauthenticated()
-            return cookie.lower()
-    if header and sessions.get(header):
-        return header
     raise _unauthenticated()
 
 

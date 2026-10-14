@@ -96,7 +96,7 @@ class Repository:
         if len(nonce) != 12:
             raise ValueError("nonce must be 12 bytes")
         record_id = str(uuid.uuid4())
-        now = time.strftime("%Y-%m-%dT%H:%M:%S.000Z", time.gmtime())
+        now = _now_utc()
         with self.conn:  # single tx: guard + seq bump + insert commit together
             row = self.conn.execute(
                 "SELECT last_sequence FROM devices WHERE device_id=?",

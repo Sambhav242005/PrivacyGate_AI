@@ -1,6 +1,7 @@
 """PG-011 seeded deterministic sensor traces + invalid fixture modes."""
 from __future__ import annotations
 
+import copy
 import random
 from datetime import datetime, timedelta, timezone
 
@@ -14,7 +15,7 @@ BASE_TIME = datetime(2026, 10, 14, 12, 0, 0, tzinfo=timezone.utc)
 
 
 def fmt_ts(dt: datetime) -> str:
-    return dt.strftime("%Y-%m-%dT%H:%M:%S.") + f"{dt.microsecond // 1000:03d}Z"
+    return dt.isoformat(timespec="milliseconds").replace("+00:00", "Z")
 
 
 def generate_trace(
@@ -51,31 +52,21 @@ def generate_trace(
     return out
 
 
-def sign_trace(trace: list[dict], signing_key: SigningKey) -> list[dict]:
-    return [sign_message(signing_key, m) for m in trace]
-
-
 def generate_signed(
     seed: int, count: int, signing_key: SigningKey, **kw
 ) -> list[dict]:
-    return sign_trace(generate_trace(seed, count, **kw), signing_key)
+    return [sign_message(signing_key, m) for m in generate_trace(seed, count, **kw)]
 
 
 def make_invalid(messages: list[dict], kind: str) -> list[dict]:
     """Return mutated copy: tamper | replay | expired. Differs from input."""
-    import copy
-
     msgs = copy.deepcopy(messages)
     if kind == "tamper":
         # Modify telemetry after signing -> signature no longer verifies.
         msgs[-1]["telemetry"]["temp_c"] = round(msgs[-1]["telemetry"]["temp_c"] + 10.0, 1)
     elif kind == "replay":
         # Reuse an earlier sequence number -> replay/monotonic violation.
-        if len(msgs) > 1:
-            msgs[-1]["sequence"] = msgs[0]["sequence"]
-        else:
-            msgs[-1]["sequence"] = msgs[-1]["sequence"]  # single msg: keep, still differs?
-            msgs.append(copy.deepcopy(msgs[-1]))
+        msgs[-1]["sequence"] = msgs[0]["sequence"]
     elif kind == "expired":
         # Shift timestamp far outside ±30s skew window -> stale/future.
         old = datetime.strptime(msgs[-1]["issued_at"], "%Y-%m-%dT%H:%M:%S.%fZ").replace(

@@ -7,16 +7,12 @@ from __future__ import annotations
 
 import base64
 import binascii
-import json
 from typing import Any
 
 from nacl.exceptions import BadSignatureError
 from nacl.signing import VerifyKey
 
-
-def canonical(obj: dict[str, Any]) -> bytes:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"),
-                      ensure_ascii=False).encode("utf-8")
+from privacygate.domain.policy import canonical_json
 
 
 def unsigned_of(msg: dict[str, Any]) -> dict[str, Any]:
@@ -29,7 +25,7 @@ def verify_message(public_key_32: bytes, msg: dict[str, Any]) -> bool:
         if len(public_key_32) != 32:
             return False
         sig = base64.b64decode(msg["signature_b64"], validate=True)
-        VerifyKey(public_key_32).verify(canonical(unsigned_of(msg)), sig)
+        VerifyKey(public_key_32).verify(canonical_json(unsigned_of(msg)), sig)
         return True
     except (KeyError, binascii.Error, BadSignatureError, ValueError):
         return False

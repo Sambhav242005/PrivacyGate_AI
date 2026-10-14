@@ -15,14 +15,10 @@ def unsigned_of(msg: dict) -> dict:
     return {k: v for k, v in msg.items() if k != "signature_b64"}
 
 
-def sign_unsigned(signing_key: SigningKey, unsigned: dict) -> str:
-    sig = signing_key.sign(canonical(unsigned)).signature
-    return base64.b64encode(sig).decode("ascii")
-
-
 def sign_message(signing_key: SigningKey, unsigned: dict) -> dict:
     msg = dict(unsigned)
-    msg["signature_b64"] = sign_unsigned(signing_key, unsigned)
+    sig = signing_key.sign(canonical(unsigned)).signature
+    msg["signature_b64"] = base64.b64encode(sig).decode("ascii")
     return msg
 
 

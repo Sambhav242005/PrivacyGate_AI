@@ -2,7 +2,7 @@
 // All routes per docs/API.md. Cookie session via credentials:include. Errors keep
 // gateway { error: { code, message, request_id } } shape; never log bodies.
 
-const BASE = (process.env.NEXT_PUBLIC_GATEWAY_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
+export const BASE = (process.env.NEXT_PUBLIC_GATEWAY_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
 
 export interface ApiErrorShape {
   code: string;
@@ -138,23 +138,8 @@ export function clearCsrf(): void {
   csrfToken = "";
 }
 
-// ---- Owner DTOs (PG-040; subscriber lane does not use these) ----
-export interface DeviceRes {
-  resource_id: string;
-  device_id: string;
-  name: string;
-  registered_at: string;
-  status: string;
-}
-export interface PolicyItem {
-  policy_id: string;
-  policy_revision: number;
-  policy_digest: string;
-  recipient_wallet: string;
-  status: string;
-}
 export interface TelemetryPage {
-  items: import("./schemas").TelemetryRow[];
+  items: TelemetryRow[];
   next_cursor: string | null;
 }
 
@@ -219,30 +204,3 @@ export const api = {
   },
   health: () => req<{ status: string }>("/v1/health"),
 };
-
-// Verb-style aliases used by login/owner pages (same endpoints, same semantics).
-export const postChallenge = (wallet_address: string) => api.challenge(wallet_address);
-export const postVerify = (challenge_id: string, signature_hex: string) =>
-  api.verify(challenge_id, signature_hex);
-export const getMe = () => api.me();
-export const postLogout = () => api.logout();
-export const getTelemetry = (resource_id: string, limit = 50, cursor?: string) =>
-  api.telemetry(resource_id, limit, cursor);
-export const getPermissionEvents = (resource_id: string) => api.permissionEvents(resource_id);
-
-// Bare-function aliases for owner dashboard named imports (same methods).
-export function enrollDevice(d: Parameters<typeof api.enrollDevice>[0]) {
-  return api.enrollDevice(d);
-}
-export function listDevices() {
-  return api.listDevices();
-}
-export function listPolicies(resource_id?: string) {
-  return api.listPolicies(resource_id);
-}
-export function createPolicy(d: Parameters<typeof api.createPolicy>[0]) {
-  return api.createPolicy(d);
-}
-export function syncPolicy(policy_id: string, transaction_hash: string) {
-  return api.syncPolicy(policy_id, transaction_hash);
-}

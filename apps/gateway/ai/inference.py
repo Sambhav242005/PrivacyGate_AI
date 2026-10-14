@@ -17,21 +17,12 @@ from . import baseline
 log = logging.getLogger(__name__)
 
 MODEL_VERSION = baseline.MODEL_VERSION
-IF_MODEL_VERSION = "isolation-forest-v1"
-
-_forest = None
-try:  # optional; stdlib baseline remains a fallback
-    from sklearn.ensemble import IsolationForest  # type: ignore
-
-    _forest = IsolationForest()
-except ImportError:
-    _forest = None
 
 _SEV_TO_BASELINE = {"LOW": "info", "MEDIUM": "warning", "HIGH": "critical"}
 
 
 def get_backend() -> str:
-    """Report 'ollama:MODEL' when Ollama reachable, else rule/IF version."""
+    """Report 'ollama:MODEL' when Ollama reachable, else rule version."""
     try:
         from .ollama import OllamaConfig
 
@@ -42,7 +33,7 @@ def get_backend() -> str:
         client.models.list()
         return f"ollama:{cfg.model}"
     except Exception:
-        return IF_MODEL_VERSION if _forest is not None else MODEL_VERSION
+        return MODEL_VERSION
 
 
 def _baseline_candidate(row: dict, observed_at: str | None) -> dict:

@@ -5,12 +5,9 @@
 // is hand-invented here. No auth, no requests other than the public spec fetch.
 
 import snapshot from "./openapi.snapshot.json";
+import { BASE as GATEWAY_BASE } from "./api";
 
 const LIVE_TIMEOUT_MS = 5000;
-
-export function gatewayBase(): string {
-  return (process.env.NEXT_PUBLIC_GATEWAY_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
-}
 
 /** Subset of JSON Schema as emitted by Pydantic v2 / FastAPI. */
 export interface JsonSchema {
@@ -242,10 +239,7 @@ export async function loadApiDocs(): Promise<ApiDocs> {
   const notes = SNAP.endpoint_notes ?? {};
   const dtoSchemas = SNAP.dto_schemas ?? {};
   try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), LIVE_TIMEOUT_MS);
-    const res = await fetch(`${gatewayBase()}/openapi.json`, { signal: ctrl.signal });
-    clearTimeout(timer);
+    const res = await fetch(`${GATEWAY_BASE}/openapi.json`, { signal: AbortSignal.timeout(LIVE_TIMEOUT_MS) });
     if (!res.ok) throw new Error(`gateway spec ${res.status}`);
     const live = (await res.json()) as SnapshotDoc["openapi"];
     if (!live.paths) throw new Error("gateway spec has no paths");

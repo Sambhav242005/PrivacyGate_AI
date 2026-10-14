@@ -41,9 +41,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def load_key(arg: str | None) -> SigningKey:
-    if arg:
-        return SigningKey(base64.b64decode(arg))
-    return SigningKey.generate()
+    return SigningKey(base64.b64decode(arg)) if arg else SigningKey.generate()
 
 
 def main(argv: list[str] | None = None) -> int:

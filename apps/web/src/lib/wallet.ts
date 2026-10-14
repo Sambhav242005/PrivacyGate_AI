@@ -116,11 +116,3 @@ export function defaultContractAddress(): string {
 export function defaultChainId(): number {
   return Number(process.env.NEXT_PUBLIC_CHAIN_ID ?? 31337);
 }
-
-// Verb-style aliases used by login/owner pages (same behavior, same wallet).
-export const hasWallet = hasInjectedWallet;
-export const connectWallet = requestAccount;
-export async function signLoginMessage(message: string): Promise<string> {
-  const account = await requestAccount();
-  return personalSign(account, message);
-}

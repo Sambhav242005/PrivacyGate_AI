@@ -4,7 +4,6 @@ from __future__ import annotations
 import base64
 import binascii
 import math
-import re
 import uuid
 from typing import Literal
 
@@ -12,26 +11,17 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 strict = ConfigDict(extra="forbid")
 
-UUID_RE = re.compile(
-    r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-"
-    r"[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-)
-RES_RE = re.compile(r"^0x[0-9a-f]{64}$")
-WALLET_LOWER_RE = re.compile(r"^0x[0-9a-f]{40}$")
-TS_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$")
-SIG_B64_RE = re.compile(r"^[A-Za-z0-9+/]{86}==$")
-
 INSIGHT_FIELDS = ("event_id", "event_type", "severity", "observed_at", "model_version")
 
 
-def _b64_len(value: str, nbytes: int) -> str:
+def b64decode_exact(value: str, nbytes: int, name: str) -> bytes:
     try:
         raw = base64.b64decode(value, validate=True)
     except (binascii.Error, ValueError) as e:
-        raise ValueError(f"invalid base64: {e}") from e
+        raise ValueError(f"invalid {name}: {e}") from e
     if len(raw) != nbytes:
-        raise ValueError(f"expected {nbytes} bytes, got {len(raw)}")
-    return value
+        raise ValueError(f"invalid {name}: want {nbytes} bytes, got {len(raw)}")
+    return raw
 
 
 class SensorTelemetryV1(BaseModel):
@@ -61,7 +51,8 @@ class SignedTelemetryV1(BaseModel):
     @field_validator("signature_b64")
     @classmethod
     def _sig_len(cls, v: str) -> str:
-        return _b64_len(v, 64)
+        b64decode_exact(v, 64, "signature")
+        return v
 
 
 class InsightV1(BaseModel):
@@ -105,4 +96,5 @@ class DeviceEnrollRequest(BaseModel):
     @field_validator("ed25519_public_key_b64")
     @classmethod
     def _pubkey_len(cls, v: str) -> str:
-        return _b64_len(v, 32)
+        b64decode_exact(v, 32, "ed25519 public key")
+        return v

@@ -199,32 +199,3 @@ export async function policyDigestHex(m: PolicyManifestV1): Promise<string> {
   return "0x" + [...new Uint8Array(hash)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-// ---- Verb-style aliases used by login/owner pages (same checks, null-on-ok) ----
-export function validateDeviceEnroll(d: {
-  resource_id: string;
-  device_id: string;
-  name: string;
-  ed25519_public_key_b64: string;
-}): string | null {
-  try {
-    assertDeviceEnroll(d);
-    return null;
-  } catch (e) {
-    return e instanceof Error ? e.message : String(e);
-  }
-}
-
-export function validatePolicyDraft(d: {
-  resource_id: string;
-  recipient_wallet: string;
-  expires_at_unix: number;
-}): string | null {
-  try {
-    assertPolicyDraft(d);
-    return null;
-  } catch (e) {
-    return e instanceof Error ? e.message : String(e);
-  }
-}
-
-export type { TelemetryRow } from "./api";

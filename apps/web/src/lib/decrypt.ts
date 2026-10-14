@@ -16,18 +16,17 @@ import {
   assertInsightV1,
   b64ToBytes,
   bytesToB64,
+  canonicalJson,
   parseAad,
 } from "./schemas";
 import type { AadContext } from "./schemas";
 import type { EnvelopeV1, InsightV1 } from "./api";
 
-export { bytesToB64 };
-
 let heldPrivateKey: Uint8Array | null = null;
 
 export function setSessionPrivateKey(b64: string): Uint8Array {
   heldPrivateKey = b64ToBytes(b64, 32, "private key");
-  return getSessionPublicKeyB64Bytes();
+  return priv().slice();
 }
 
 export function hasSessionPrivateKey(): boolean {
@@ -50,15 +49,11 @@ async function x25519() {
 }
 
 export async function generateKeypair(): Promise<{ publicKeyB64: string; privateKeyB64: string }> {
-  const { x25519: x } = { x25519: await x25519() };
+  const x = await x25519();
   const sk = x.utils.randomPrivateKey();
   const pk = x.getPublicKey(sk);
   heldPrivateKey = sk;
   return { publicKeyB64: bytesToB64(pk), privateKeyB64: bytesToB64(sk) };
-}
-
-function getSessionPublicKeyB64Bytes(): Uint8Array {
-  return priv().slice();
 }
 
 export async function sessionPublicKeyB64(): Promise<string> {
@@ -74,12 +69,13 @@ const HKDF_SALT_ZEROS = new Uint8Array(32);
 
 /** Context-bound HKDF info per DESIGN.md 7; byte-identical to Python canonical_json. */
 export function hkdfInfoBytes(ctx: Pick<AadContext, "event_id" | "key_epoch" | "policy_version" | "recipient_wallet" | "resource_id">): Uint8Array {
-  const canonical =
-    `{"event_id":${JSON.stringify(ctx.event_id)},` +
-    `"key_epoch":${ctx.key_epoch},` +
-    `"policy_version":${ctx.policy_version},` +
-    `"recipient_wallet":${JSON.stringify(ctx.recipient_wallet.toLowerCase())},` +
-    `"resource_id":${JSON.stringify(ctx.resource_id)}}`;
+  const canonical = canonicalJson({
+    event_id: ctx.event_id,
+    key_epoch: ctx.key_epoch,
+    policy_version: ctx.policy_version,
+    recipient_wallet: ctx.recipient_wallet.toLowerCase(),
+    resource_id: ctx.resource_id,
+  });
   return new TextEncoder().encode(HKDF_DOMAIN + canonical);
 }
 

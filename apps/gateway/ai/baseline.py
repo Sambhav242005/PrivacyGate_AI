@@ -36,10 +36,6 @@ def predict(row: dict) -> tuple[bool, str, str]:
     return True, "warning", "sensor_anomaly"
 
 
-def predict_batch(rows: list[dict]) -> list[bool]:
-    return [predict(r)[0] for r in rows]
-
-
 def evaluate(rows: list[dict]) -> dict:
     """Confusion matrix + precision/recall/F1/FPR/FNR on labeled rows."""
     tp = fp = tn = fn = 0

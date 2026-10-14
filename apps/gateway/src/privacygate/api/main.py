@@ -14,8 +14,6 @@ from privacygate.chain.permissions import AuthzUnavailable, PolicyDenied
 from privacygate.chain.sync import DictPolicyStore
 from privacygate.services.delivery import DeliveryQueue, KeyNotRegistered
 
-STATUS_FOR: dict[str, int] = {}
-
 
 def _rid() -> str:
     return uuid.uuid4().hex[:12]

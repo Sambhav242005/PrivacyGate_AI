@@ -10,7 +10,6 @@ from typing import Any
 
 from .schemas import INSIGHT_FIELDS, InsightV1
 
-ALLOWED_FIELDS = frozenset(INSIGHT_FIELDS)
 # Internal-only key carried from inference; never part of InsightV1.
 _INTERNAL_KEYS = frozenset({"is_anomaly"})
 
@@ -48,7 +47,7 @@ def serialize_candidate(candidate: dict[str, Any]) -> InsightV1 | None:
     for key in candidate:
         if key in _INTERNAL_KEYS:
             continue
-        if key not in ALLOWED_FIELDS:
+        if key not in INSIGHT_FIELDS:
             raise ValueError(f"forbidden field: {key}")
     if "is_anomaly" not in candidate:
         raise ValueError("candidate missing is_anomaly flag")

@@ -44,15 +44,15 @@ from cryptography.hazmat.primitives.asymmetric.x25519 import (
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 
+from privacygate.domain.policy import canonical_json
+from privacygate.domain.schemas import INSIGHT_FIELDS, b64decode_exact
+
 SCHEMA_VERSION = 1
 WALLET_RE = re.compile(r"^0x[0-9a-fA-F]{40}$")
 RES_RE = re.compile(r"^0x[0-9a-f]{64}$")
 UUID_RE = re.compile(
     r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-"
     r"[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-)
-INSIGHT_FIELDS = frozenset(
-    ("event_id", "event_type", "severity", "observed_at", "model_version")
 )
 AAD_FIELDS = (
     "schema_version",
@@ -64,22 +64,6 @@ AAD_FIELDS = (
     "key_epoch",
 )
 _HKDF_DOMAIN = b"privacygate-envelope-v1|"
-
-
-def canonical_json(obj: Any) -> bytes:
-    return json.dumps(
-        obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False
-    ).encode("utf-8")
-
-
-def _b64decode_exact(value: str, nbytes: int, name: str) -> bytes:
-    try:
-        raw = base64.b64decode(value, validate=True)
-    except (binascii.Error, ValueError) as e:
-        raise ValueError(f"invalid {name}: {e}") from e
-    if len(raw) != nbytes:
-        raise ValueError(f"invalid {name}: want {nbytes} bytes, got {len(raw)}")
-    return raw
 
 
 def _normalize_wallet(wallet: str) -> str:
@@ -175,12 +159,6 @@ def generate_recipient_keypair() -> tuple[str, str]:
     )
 
 
-def public_b64_from_private(private_b64: str) -> str:
-    raw = _b64decode_exact(private_b64, 32, "private key")
-    pub = X25519PrivateKey.from_private_bytes(raw).public_key()
-    return base64.b64encode(pub.public_bytes_raw()).decode()
-
-
 def encrypt_insight(
     insight: dict[str, Any],
     recipient_public_key_b64: str,
@@ -192,7 +170,7 @@ def encrypt_insight(
     delivery_id: str | None = None,
 ) -> dict[str, Any]:
     _validate_insight(insight)
-    peer_raw = _b64decode_exact(
+    peer_raw = b64decode_exact(
         recipient_public_key_b64, 32, "recipient public key"
     )
     if not RES_RE.match(resource_id):
@@ -252,13 +230,13 @@ def decrypt_insight(
 ) -> dict[str, Any]:
     """Decrypt + verify envelope. Raises ValueError on any tamper/mismatch."""
     try:
-        priv_raw = _b64decode_exact(
+        priv_raw = b64decode_exact(
             recipient_private_key_b64, 32, "private key"
         )
-        eph_raw = _b64decode_exact(
+        eph_raw = b64decode_exact(
             str(envelope["ephemeral_public_key_b64"]), 32, "ephemeral key"
         )
-        nonce = _b64decode_exact(str(envelope["nonce_b64"]), 12, "nonce")
+        nonce = b64decode_exact(str(envelope["nonce_b64"]), 12, "nonce")
         try:
             aad_wire = base64.b64decode(str(envelope["aad_b64"]), validate=True)
         except (binascii.Error, ValueError) as e:

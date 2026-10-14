@@ -53,7 +53,6 @@ contract PermissionRegistryTest is Test {
         assertEq(v, 1);
         assertTrue(active);
         assertEq(scope, registry.SCOPE_READ_INSIGHT());
-        assertEq(scope, 1);
     }
 
     function test_grant_regrantIncrementsVersion() public {
@@ -100,12 +99,12 @@ contract PermissionRegistryTest is Test {
     }
 
     function test_revoke_blocksDelivery() public {
-        vm.prank(owner);
+        vm.startPrank(owner);
         registry.grant(resourceId, reader, digest, _expiry());
-        vm.prank(owner);
         vm.expectEmit(true, true, false, true);
         emit Revoked(resourceId, reader, 2);
         registry.revoke(resourceId, reader);
+        vm.stopPrank();
 
         (,, uint32 v, bool active,) = registry.getGrant(resourceId, reader);
         assertEq(v, 2);

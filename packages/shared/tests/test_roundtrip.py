@@ -58,8 +58,7 @@ def test_policy_digest_roundtrip():
     assert manifest["allowed_event_types"] == ["MACHINE_ANOMALY"]
     assert manifest["scope"] == "READ_INSIGHT"
     assert RES_RE.match(manifest["resource_id"])
-    assert re.match(r"^0x[0-9a-f]{40}$",
-                    manifest["recipient_wallet_lowercase"])
+    assert WALLET_RE.match(manifest["recipient_wallet_lowercase"])
     expect = "0x" + hashlib.sha256(canonical(manifest)).hexdigest()
     assert digest_doc["policy_digest"] == expect
 

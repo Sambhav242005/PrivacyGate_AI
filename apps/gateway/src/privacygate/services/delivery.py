@@ -9,78 +9,21 @@ bytes exist transiently inside dispatch() and never persist.
 """
 from __future__ import annotations
 
-import base64
-import binascii
 import json
-import os
 import re
 import time
 import uuid
 
-from cryptography.exceptions import InvalidTag
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric.x25519 import (
-    X25519PrivateKey,
-    X25519PublicKey,
-)
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-from cryptography.hazmat.primitives.kdf.hkdf import HKDF
-
 from privacygate.chain.permissions import PolicyDenied, authorize
-from privacygate.domain.schemas import InsightV1
+from privacygate.domain.schemas import InsightV1, b64decode_exact
+from privacygate.security.envelopes import decrypt_insight, encrypt_insight
 
-SCHEMA_VERSION = 1
-# DESIGN.md section 7: info = b"privacygate-envelope-v1|" + canonical JSON of
-# {event_id, key_epoch, policy_version, recipient_wallet, resource_id},
-# salt=None (web passes 32 zero bytes, the RFC 5869 equivalent).
-_HKDF_DOMAIN = b"privacygate-envelope-v1|"
 WALLET_RE = re.compile(r"^0x[0-9a-fA-F]{40}$")
 RES_RE = re.compile(r"^0x[0-9a-f]{64}$")
 
 
 class KeyNotRegistered(Exception):
     pass
-
-
-def _b64e(raw: bytes) -> str:
-    return base64.b64encode(raw).decode()
-
-
-def _b64d(value: str, nbytes: int, name: str) -> bytes:
-    try:
-        raw = base64.b64decode(value, validate=True)
-    except (binascii.Error, ValueError) as e:
-        raise ValueError(f"invalid {name}: {e}") from e
-    if len(raw) != nbytes:
-        raise ValueError(f"{name} must be {nbytes} bytes, got {len(raw)}")
-    return raw
-
-
-def canonical(obj: object) -> bytes:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":")).encode("utf-8")
-
-
-_AAD_FIELDS = frozenset((
-    "schema_version", "delivery_id", "event_id", "resource_id",
-    "recipient_wallet", "policy_version", "key_epoch",
-))
-
-
-def _hkdf_info(
-    *,
-    recipient_wallet: str,
-    resource_id: str,
-    event_id: str,
-    policy_version: int,
-    key_epoch: int,
-) -> bytes:
-    return _HKDF_DOMAIN + canonical({
-        "event_id": str(event_id),
-        "key_epoch": int(key_epoch),
-        "policy_version": int(policy_version),
-        "recipient_wallet": recipient_wallet.lower(),
-        "resource_id": resource_id,
-    })
 
 
 def encrypt_envelope(
@@ -93,88 +36,17 @@ def encrypt_envelope(
     key_epoch: int,
     delivery_id: str | None = None,
 ) -> dict[str, object]:
-    peer = X25519PublicKey.from_public_bytes(_b64d(recipient_pub_b64, 32, "recipient key"))
-    eph_priv = X25519PrivateKey.generate()
-    shared = eph_priv.exchange(peer)
-    key = HKDF(algorithm=hashes.SHA256(), length=32, salt=None,
-               info=_hkdf_info(
-                   recipient_wallet=recipient_wallet,
-                   resource_id=resource_id,
-                   event_id=str(insight.event_id),
-                   policy_version=int(policy_version),
-                   key_epoch=int(key_epoch))).derive(shared)
-    nonce = os.urandom(12)
-    did = delivery_id or str(uuid.uuid4())
-    aad_obj = {"delivery_id": did, "event_id": str(insight.event_id),
-               "key_epoch": int(key_epoch),
-               "policy_version": int(policy_version),
-               "recipient_wallet": recipient_wallet.lower(),
-               "resource_id": resource_id, "schema_version": SCHEMA_VERSION}
-    aad = canonical(aad_obj)
-    from privacygate.domain.serializer import insight_canonical_bytes
-    ct = AESGCM(key).encrypt(nonce, insight_canonical_bytes(insight), aad)
-    return {"delivery_id": did, "schema_version": SCHEMA_VERSION,
-            "resource_id": resource_id,
-            "recipient_wallet": recipient_wallet.lower(),
-            "policy_version": int(policy_version), "key_epoch": int(key_epoch),
-            "ephemeral_public_key_b64": _b64e(
-                eph_priv.public_key().public_bytes_raw()),
-            "nonce_b64": _b64e(nonce), "aad_b64": _b64e(aad), "ciphertext_b64": _b64e(ct)}
+    """Delegate to security/envelopes.py (single DESIGN-7 wire format)."""
+    return encrypt_insight(
+        insight.model_dump(mode="json"), recipient_pub_b64,
+        resource_id=resource_id, recipient_wallet=recipient_wallet,
+        policy_version=int(policy_version), key_epoch=int(key_epoch),
+        delivery_id=delivery_id)
 
 
 def decrypt_envelope(envelope: dict, recipient_priv_b64: str) -> InsightV1:
     """Client-side reference decryption (tests/subscriber app)."""
-    try:
-        priv = X25519PrivateKey.from_private_bytes(_b64d(recipient_priv_b64, 32, "private key"))
-        peer = X25519PublicKey.from_public_bytes(
-            _b64d(str(envelope["ephemeral_public_key_b64"]), 32, "ephemeral key"))
-        nonce = _b64d(str(envelope["nonce_b64"]), 12, "nonce")
-        try:
-            aad = base64.b64decode(str(envelope["aad_b64"]), validate=True)
-        except (binascii.Error, ValueError) as e:
-            raise ValueError(f"invalid aad: {e}") from e
-        try:
-            ct = base64.b64decode(str(envelope["ciphertext_b64"]), validate=True)
-        except (binascii.Error, ValueError) as e:
-            raise ValueError(f"invalid ciphertext: {e}") from e
-        if not ct:
-            raise ValueError("empty ciphertext")
-        aad_obj = json.loads(aad.decode("utf-8"))
-        if not isinstance(aad_obj, dict) or set(aad_obj) != _AAD_FIELDS:
-            raise ValueError("AAD fields mismatch")
-        # AAD must mirror envelope header exactly (binds delivery context).
-        for field in ("schema_version", "delivery_id", "resource_id",
-                      "recipient_wallet", "policy_version", "key_epoch"):
-            if aad_obj[field] != envelope[field]:
-                raise ValueError(f"AAD {field} mismatch")
-        if int(aad_obj["schema_version"]) != SCHEMA_VERSION:
-            raise ValueError("unsupported schema_version")
-        expected_aad = canonical({
-            "schema_version": SCHEMA_VERSION,
-            "delivery_id": str(aad_obj["delivery_id"]),
-            "event_id": str(aad_obj["event_id"]),
-            "resource_id": str(aad_obj["resource_id"]),
-            "recipient_wallet": str(aad_obj["recipient_wallet"]),
-            "policy_version": int(aad_obj["policy_version"]),
-            "key_epoch": int(aad_obj["key_epoch"]),
-        })
-        if expected_aad != aad:
-            raise ValueError("AAD encoding mismatch")
-        key = HKDF(algorithm=hashes.SHA256(), length=32, salt=None,
-                   info=_hkdf_info(
-                       recipient_wallet=str(aad_obj["recipient_wallet"]),
-                       resource_id=str(aad_obj["resource_id"]),
-                       event_id=str(aad_obj["event_id"]),
-                       policy_version=int(aad_obj["policy_version"]),
-                       key_epoch=int(aad_obj["key_epoch"]))).derive(
-                       priv.exchange(peer))
-        pt = AESGCM(key).decrypt(nonce, ct, aad)
-        insight = InsightV1.model_validate_json(pt)
-        if str(insight.event_id) != str(aad_obj["event_id"]):
-            raise ValueError("AAD event_id mismatch after decrypt")
-        return insight
-    except (InvalidTag, ValueError) as e:
-        raise ValueError(f"envelope decrypt failed: {e}") from e
+    return InsightV1.model_validate(decrypt_insight(envelope, recipient_priv_b64))
 
 
 def scan_no_plaintext(records: list[dict], forbidden_terms: list[str]) -> None:
@@ -197,7 +69,7 @@ class DeliveryQueue:
     def register_key(self, wallet: str, pub_b64: str) -> dict[str, str]:
         if not WALLET_RE.match(wallet or ""):
             raise ValueError("invalid wallet address")
-        _b64d(pub_b64, 32, "x25519 key")
+        b64decode_exact(pub_b64, 32, "x25519 key")
         w = wallet.lower()
         rotated = w in self.keys and self.keys[w]["x25519_public_key_b64"] != pub_b64
         self.keys[w] = {"wallet_address": w, "key_id": self.keys.get(w, {}).get(
