@@ -1,7 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/login/page": "app/login/page.js",
-  "/(owner)/dashboard/page": "app/(owner)/dashboard/page.js",
-  "/(subscriber)/insights/page": "app/(subscriber)/insights/page.js",
-  "/api-docs/page": "app/api-docs/page.js"
-}

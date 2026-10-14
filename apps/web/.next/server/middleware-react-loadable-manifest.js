@@ -1,1 +1,0 @@
-self.__REACT_LOADABLE_MANIFEST="{\"lib\\\\decrypt.ts -> @noble/curves/ed25519\":{\"id\":\"lib\\\\decrypt.ts -> @noble/curves/ed25519\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_noble_curves_esm_ed25519_js.js\"]}}"

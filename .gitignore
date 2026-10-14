@@ -4,3 +4,8 @@ var/
 .env
 node_modules/
 __pycache__/
+
+apps/web/.next/
+apps/web/test-results/
+playwright-report/
+
