@@ -54,6 +54,17 @@
 - **Follow-up:** remaining risk and owner
 ```
 
+## Confirmed incidents
+
+### 2026-10-26 — INC-V2-001 — Windows CI service lifecycle and timestamp types
+
+- **Status:** Fix implemented; the Actions run attached to the fix is the remote verification gate.
+- **Observed:** Run 40363579050 passed backend/build checks and startup, then browser navigation failed with ERR_CONNECTION_REFUSED in the next shell step. Run 40364790801 passed the browser journey after combining the lifecycle, then cleanup incorrectly reported a reused PID.
+- **Cause:** Background services did not survive the separate Windows startup shell. PowerShell 7 also deserializes the recorded ISO timestamp as DateTime, unlike the string representation used by Windows PowerShell 5; comparing its formatted representation to a string falsely rejected the correct process.
+- **Fix:** Keep startup, Playwright and finally cleanup in one run step. Compare process-start instants as UTC ticks through ProcessIdentity.ps1; retain fail-closed handling for mismatched or malformed process records.
+- **Regression:** tests/v2/test_process_identity.py checks actual process metadata using string, DateTime and offset representations; a one-tick mismatch and malformed record must be rejected. Local regression passed. The required live Actions journey remains the cross-step lifecycle regression.
+- **References:** https://github.com/Sambhav242005/PrivacyGate_AI/actions/runs/40363579050 and https://github.com/Sambhav242005/PrivacyGate_AI/actions/runs/40364790801.
+
 ## Known open design risks (not incidents)
 
 - The trusted local gateway can access all raw telemetry in memory; compromise bypasses intended privacy.
