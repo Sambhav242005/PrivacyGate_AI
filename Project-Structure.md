@@ -1,3 +1,5 @@
+> **Native v2 supersession:** New ownership, runtime and interfaces are defined in [docs/V2.md](docs/V2.md). The v1 target layout below is historical; new gateway modules live in apps/gateway/src/privacygate_v2, tests in apps/gateway/tests/v2 and tests/v2, and native tools in infra/scripts/v2.
+
 # Project-Structure.md — Intended Repository Layout
 
 > This is a **target structure**, not a claim that source files already exist. Do not create empty placeholder files for every path without implementation need.

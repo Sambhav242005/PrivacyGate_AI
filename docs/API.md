@@ -1,3 +1,5 @@
+> **v2 supersession (2026-10-26):** The approved native custom-blockchain design in [V2.md](V2.md) governs new implementation. EVM/wallet/MQTT and incompatible v1 tooling/schema requirements below are historical. Completion requires dated v2 evidence, not the legacy checkboxes.
+
 # API.md — HTTP, MQTT and Blockchain Interface Contract
 
 > **Contract status: proposed v1, implementation pending.** All HTTP routes start `/v1` and accept/respond JSON unless specified. The source of truth for business meaning is `SPEC.md`; exact data shape is `DATA_MODEL.md`.

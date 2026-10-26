@@ -1,0 +1,420 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T00:47:55.320595+00:00",
+  "title": "Design System: PrivacyGate AI client workspace",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Forest green",
+        "canonical": "#2f684e",
+        "tonalRamp": [
+          "oklch(15% 0.07421 161.83)",
+          "oklch(26% 0.07421 161.83)",
+          "oklch(38% 0.07421 161.83)",
+          "oklch(49% 0.07421 161.83)",
+          "oklch(61% 0.07421 161.83)",
+          "oklch(72% 0.07421 161.83)",
+          "oklch(84% 0.07421 161.83)",
+          "oklch(95% 0.07421 161.83)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Deep forest",
+        "canonical": "#214e39",
+        "tonalRamp": [
+          "oklch(15% 0.06192 161.18)",
+          "oklch(26% 0.06192 161.18)",
+          "oklch(38% 0.06192 161.18)",
+          "oklch(49% 0.06192 161.18)",
+          "oklch(61% 0.06192 161.18)",
+          "oklch(72% 0.06192 161.18)",
+          "oklch(84% 0.06192 161.18)",
+          "oklch(95% 0.06192 161.18)"
+        ]
+      },
+      "data": {
+        "role": "secondary",
+        "displayName": "River green",
+        "canonical": "#438777",
+        "tonalRamp": [
+          "oklch(15% 0.07405 176.22)",
+          "oklch(26% 0.07405 176.22)",
+          "oklch(38% 0.07405 176.22)",
+          "oklch(49% 0.07405 176.22)",
+          "oklch(61% 0.07405 176.22)",
+          "oklch(72% 0.07405 176.22)",
+          "oklch(84% 0.07405 176.22)",
+          "oklch(95% 0.07405 176.22)"
+        ]
+      },
+      "chain-read": {
+        "role": "secondary",
+        "displayName": "Muted violet",
+        "canonical": "#7662b0",
+        "tonalRamp": [
+          "oklch(15% 0.11943 293.91)",
+          "oklch(26% 0.11943 293.91)",
+          "oklch(38% 0.11943 293.91)",
+          "oklch(49% 0.11943 293.91)",
+          "oklch(61% 0.11943 293.91)",
+          "oklch(72% 0.11943 293.91)",
+          "oklch(84% 0.11943 293.91)",
+          "oklch(95% 0.11943 293.91)"
+        ]
+      },
+      "chain-write": {
+        "role": "secondary",
+        "displayName": "Warm amber",
+        "canonical": "#b7813b",
+        "tonalRamp": [
+          "oklch(15% 0.10890 70.64)",
+          "oklch(26% 0.10890 70.64)",
+          "oklch(38% 0.10890 70.64)",
+          "oklch(49% 0.10890 70.64)",
+          "oklch(61% 0.10890 70.64)",
+          "oklch(72% 0.10890 70.64)",
+          "oklch(84% 0.10890 70.64)",
+          "oklch(95% 0.10890 70.64)"
+        ]
+      },
+      "blocked": {
+        "role": "secondary",
+        "displayName": "Brick red",
+        "canonical": "#9c443c",
+        "tonalRamp": [
+          "oklch(15% 0.11940 27.40)",
+          "oklch(26% 0.11940 27.40)",
+          "oklch(38% 0.11940 27.40)",
+          "oklch(49% 0.11940 27.40)",
+          "oklch(61% 0.11940 27.40)",
+          "oklch(72% 0.11940 27.40)",
+          "oklch(84% 0.11940 27.40)",
+          "oklch(95% 0.11940 27.40)"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Sage paper",
+        "canonical": "#f7f9f6",
+        "tonalRamp": [
+          "oklch(15% 0.00447 134.85)",
+          "oklch(26% 0.00447 134.85)",
+          "oklch(38% 0.00447 134.85)",
+          "oklch(49% 0.00447 134.85)",
+          "oklch(61% 0.00447 134.85)",
+          "oklch(72% 0.00447 134.85)",
+          "oklch(84% 0.00447 134.85)",
+          "oklch(95% 0.00447 134.85)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0.00000 0.00)",
+          "oklch(26% 0.00000 0.00)",
+          "oklch(38% 0.00000 0.00)",
+          "oklch(49% 0.00000 0.00)",
+          "oklch(61% 0.00000 0.00)",
+          "oklch(72% 0.00000 0.00)",
+          "oklch(84% 0.00000 0.00)",
+          "oklch(95% 0.00000 0.00)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Forest ink",
+        "canonical": "#253631",
+        "tonalRamp": [
+          "oklch(15% 0.02401 174.58)",
+          "oklch(26% 0.02401 174.58)",
+          "oklch(38% 0.02401 174.58)",
+          "oklch(49% 0.02401 174.58)",
+          "oklch(61% 0.02401 174.58)",
+          "oklch(72% 0.02401 174.58)",
+          "oklch(84% 0.02401 174.58)",
+          "oklch(95% 0.02401 174.58)"
+        ]
+      },
+      "secondary-text": {
+        "role": "neutral",
+        "displayName": "Muted sage ink",
+        "canonical": "#61716b",
+        "tonalRamp": [
+          "oklch(15% 0.02130 170.88)",
+          "oklch(26% 0.02130 170.88)",
+          "oklch(38% 0.02130 170.88)",
+          "oklch(49% 0.02130 170.88)",
+          "oklch(61% 0.02130 170.88)",
+          "oklch(72% 0.02130 170.88)",
+          "oklch(84% 0.02130 170.88)",
+          "oklch(95% 0.02130 170.88)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Pale sage line",
+        "canonical": "#dde5df",
+        "tonalRamp": [
+          "oklch(15% 0.01174 153.66)",
+          "oklch(26% 0.01174 153.66)",
+          "oklch(38% 0.01174 153.66)",
+          "oklch(49% 0.01174 153.66)",
+          "oklch(61% 0.01174 153.66)",
+          "oklch(72% 0.01174 153.66)",
+          "oklch(84% 0.01174 153.66)",
+          "oklch(95% 0.01174 153.66)"
+        ]
+      },
+      "focus": {
+        "role": "secondary",
+        "displayName": "Slate indigo",
+        "canonical": "#5269bb",
+        "tonalRamp": [
+          "oklch(15% 0.13070 269.84)",
+          "oklch(26% 0.13070 269.84)",
+          "oklch(38% 0.13070 269.84)",
+          "oklch(49% 0.13070 269.84)",
+          "oklch(61% 0.13070 269.84)",
+          "oklch(72% 0.13070 269.84)",
+          "oklch(84% 0.13070 269.84)",
+          "oklch(95% 0.13070 269.84)"
+        ]
+      },
+      "client-border": {
+        "role": "neutral",
+        "displayName": "Client sage line",
+        "canonical": "#dce5dd",
+        "tonalRamp": [
+          "oklch(15% 0.01441 148.77)",
+          "oklch(26% 0.01441 148.77)",
+          "oklch(38% 0.01441 148.77)",
+          "oklch(49% 0.01441 148.77)",
+          "oklch(61% 0.01441 148.77)",
+          "oklch(72% 0.01441 148.77)",
+          "oklch(84% 0.01441 148.77)",
+          "oklch(95% 0.01441 148.77)"
+        ]
+      },
+      "client-primary-hover": {
+        "role": "secondary",
+        "displayName": "Client deep forest",
+        "canonical": "#25543f",
+        "tonalRamp": [
+          "oklch(15% 0.06315 162.38)",
+          "oklch(26% 0.06315 162.38)",
+          "oklch(38% 0.06315 162.38)",
+          "oklch(49% 0.06315 162.38)",
+          "oklch(61% 0.06315 162.38)",
+          "oklch(72% 0.06315 162.38)",
+          "oklch(84% 0.06315 162.38)",
+          "oklch(95% 0.06315 162.38)"
+        ]
+      },
+      "client-error": {
+        "role": "secondary",
+        "displayName": "Client brick red",
+        "canonical": "#a4473b",
+        "tonalRamp": [
+          "oklch(15% 0.12582 29.48)",
+          "oklch(26% 0.12582 29.48)",
+          "oklch(38% 0.12582 29.48)",
+          "oklch(49% 0.12582 29.48)",
+          "oklch(61% 0.12582 29.48)",
+          "oklch(72% 0.12582 29.48)",
+          "oklch(84% 0.12582 29.48)",
+          "oklch(95% 0.12582 29.48)"
+        ]
+      },
+      "input-border": {
+        "role": "neutral",
+        "displayName": "Input sage line",
+        "canonical": "#cdd9ce",
+        "tonalRamp": [
+          "oklch(15% 0.01975 147.82)",
+          "oklch(26% 0.01975 147.82)",
+          "oklch(38% 0.01975 147.82)",
+          "oklch(49% 0.01975 147.82)",
+          "oklch(61% 0.01975 147.82)",
+          "oklch(72% 0.01975 147.82)",
+          "oklch(84% 0.01975 147.82)",
+          "oklch(95% 0.01975 147.82)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Overview headline",
+        "purpose": "Primary heading; 25px on compact screens."
+      },
+      "title": {
+        "displayName": "Section title",
+        "purpose": "Map, walkthrough, and activity headings."
+      },
+      "body": {
+        "displayName": "Workspace body",
+        "purpose": "Inherited text; descriptive components use smaller observed sizes."
+      },
+      "client-headline": {
+        "displayName": "Client page heading",
+        "purpose": "30px task headings; 27px on compact screens."
+      },
+      "client-title": {
+        "displayName": "Client section title",
+        "purpose": "17px card headings."
+      },
+      "client-body": {
+        "displayName": "Client body",
+        "purpose": "14px base text with 1.55 line height."
+      }
+    },
+    "shadows": [
+      {
+        "name": "scenario-selected",
+        "value": "0 1px 3px #23342618",
+        "purpose": "Small structural shadow on selected scenario."
+      }
+    ],
+    "motion": [
+      {
+        "name": "button-state",
+        "value": "background 150ms, border-color 150ms",
+        "purpose": "Hover and selection; disabled for reduced motion."
+      },
+      {
+        "name": "packet-flow",
+        "value": "packet-flow 1s linear infinite",
+        "purpose": "Animated dash offset to -20 on active SVG connectors; disabled for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1600px"
+      },
+      {
+        "name": "narrow-desktop",
+        "value": "1250px"
+      },
+      {
+        "name": "top-navigation",
+        "value": "1020px"
+      },
+      {
+        "name": "stacked-inspector",
+        "value": "760px"
+      },
+      {
+        "name": "compact-node-list",
+        "value": "480px"
+      },
+      {
+        "name": "client-top-navigation",
+        "value": "1050px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "description": "Runs or pauses the local walkthrough.",
+      "html": "<button class=\"ds-primary\">Run walkthrough</button>",
+      "css": ".ds-primary{font-family:ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif;background:#2f684e;color:white;padding:8px 10px;border:0;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;transition:background 150ms;}.ds-primary:hover{background:#214e39;}.ds-primary:focus-visible{outline:3px solid #5269bb;outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none;}}",
+      "refersTo": "button-primary"
+    },
+    {
+      "name": "Secondary action",
+      "kind": "button",
+      "description": "Advances one illustrative step.",
+      "html": "<button class=\"ds-secondary\">Next step</button>",
+      "css": ".ds-secondary{font-family:ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif;background:white;color:#526559;padding:8px 10px;border:1px solid #dde5df;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;transition:background 150ms;}.ds-secondary:hover{background:#f1f5ec;}.ds-secondary:focus-visible{outline:3px solid #5269bb;outline-offset:4px;}.ds-secondary:disabled{opacity:.45;cursor:not-allowed;}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none;}}",
+      "refersTo": "button-secondary"
+    },
+    {
+      "name": "Workspace navigation",
+      "kind": "nav",
+      "description": "Active and available workspace destinations.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#overview\" aria-current=\"page\">Network overview</a><a href=\"#owner\">My devices</a></nav>",
+      "css": ".ds-nav{font-family:ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif;display:grid;gap:6px;background:white;}.ds-nav a{padding:11px 12px;border-radius:6px;color:#56665f;font-size:12px;text-decoration:none;}.ds-nav a:hover{background:#f4f7f3;}.ds-nav a[aria-current]{background:#eaf1e9;color:#285740;font-weight:650;}.ds-nav a:focus-visible{outline:3px solid #5269bb;outline-offset:4px;}"
+    },
+    {
+      "name": "Illustrative demo badge",
+      "kind": "chip",
+      "description": "Persistent label for simulated activity; a status label with no interactive state.",
+      "html": "<span class=\"ds-badge\"><i aria-hidden=\"true\"></i>Illustrative demo</span>",
+      "css": ".ds-badge{font-family:ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif;display:inline-flex;align-items:center;gap:7px;color:#755d2b;background:#f2eddf;border-radius:5px;padding:5px 9px;font-size:10px;}.ds-badge i{width:5px;height:5px;border-radius:50%;background:#9a7939;}"
+    },
+    {
+      "name": "Activity panel",
+      "kind": "card",
+      "description": "Flat bordered container for simulated events.",
+      "html": "<section class=\"ds-panel\"><h2>Activity feed</h2><p>No packets in this walkthrough yet.</p></section>",
+      "css": ".ds-panel{font-family:ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif;background:white;color:#253631;border:1px solid #dde5df;border-radius:10px;padding:19px 21px;}.ds-panel h2{font-size:16px;font-weight:650;letter-spacing:-.015em;margin:0;}.ds-panel p{font-size:11px;color:#4e6354;margin:20px 0 0;}",
+      "refersTo": "panel"
+    },
+    {
+      "name": "Selected network node",
+      "kind": "custom",
+      "description": "Selectable component with visible pressed state; opens a plain-language inspector.",
+      "html": "<button class=\"ds-node\" aria-pressed=\"true\"><small>Local processing</small><strong>AI gateway</strong><span>Demo component</span></button>",
+      "css": ".ds-node{font-family:ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif;width:190px;padding:12px 10px 10px;text-align:left;border:1.5px solid #4a7d59;background:#f1f7ef;outline:3px solid #e4eee1;border-radius:8px;color:#253631;cursor:pointer;transition:background 150ms,border-color 150ms;}.ds-node small{display:block;font-size:9px;color:#68786d;}.ds-node strong{display:block;font-size:12px;font-weight:650;margin-top:3px;}.ds-node span{display:block;font-size:9px;color:#5b6d60;border-top:1px solid #e7ece4;padding-top:7px;margin-top:9px;}.ds-node:hover{background:#f2f7f0;border-color:#779b80;}.ds-node:focus-visible{outline:3px solid #5269bb;outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-node{transition:none;}}"
+    },
+    {
+      "name": "Client action",
+      "kind": "button",
+      "refersTo": "client-button",
+      "description": "Primary task action; minimum height 40px.",
+      "html": "<button class=\"ds-client-button\">Connect wallet</button>",
+      "css": ".ds-client-button{font-family:ui-sans-serif,system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;border:0;border-radius:6px;padding:10px 14px;min-height:40px;background:#2f684e;color:white;font-size:13px;font-weight:600;cursor:pointer;transition:background 150ms;}.ds-client-button:hover{background:#25543f;}.ds-client-button:focus-visible{outline:3px solid #5269bb;outline-offset:3px;}.ds-client-button:disabled{opacity:.45;cursor:not-allowed;}@media(prefers-reduced-motion:reduce){.ds-client-button{transition:none;}}"
+    },
+    {
+      "name": "Client field",
+      "kind": "input",
+      "refersTo": "client-input",
+      "description": "Visible label and hint with a white task input; minimum height 42px.",
+      "html": "<label class=\"ds-client-label\">Device name<input class=\"ds-client-input\" placeholder=\"Enter a device name\" aria-describedby=\"ds-device-hint\"></label><p id=\"ds-device-hint\" class=\"ds-client-hint\">Choose a name you recognize.</p>",
+      "css": ".ds-client-label{font-family:ui-sans-serif,system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;display:grid;gap:7px;font-size:12px;font-weight:600;color:#415a49;margin-bottom:17px;}.ds-client-input{font-family:ui-sans-serif,system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;box-sizing:border-box;width:100%;min-width:0;min-height:42px;border:1px solid #cdd9ce;border-radius:6px;background:white;color:#293e30;padding:10px 12px;font-size:13px;font-weight:400;caret-color:#2f684e;}.ds-client-input::placeholder{color:#697a6d;}.ds-client-input:focus-visible{outline:3px solid #5269bb;outline-offset:3px;}.ds-client-hint{font-family:ui-sans-serif,system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-size:11px;color:#61716b;line-height:1.7;margin:-7px 0 19px;}"
+    },
+    {
+      "name": "Back to network",
+      "kind": "nav",
+      "description": "Persistent return link in each nonhome top bar.",
+      "html": "<a href=\"#network\" class=\"ds-back\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M19 12H5m6-6-6 6 6 6\"/></svg>Back to network</a>",
+      "css": ".ds-back{font-family:ui-sans-serif,system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;display:inline-flex;align-items:center;gap:9px;color:#35543e;font-size:13px;font-weight:500;text-decoration:none;}.ds-back:hover{text-decoration:underline;text-underline-offset:4px;}.ds-back:focus-visible{outline:3px solid #5269bb;outline-offset:3px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Light control room",
+    "overview": "A daylight operations workspace with white surfaces, a pale sage canvas, restrained green actions, purple chain reads, and amber chain writes. Familiar sans-serif text and explicit labels make the network understandable without specialist knowledge.\n\nScope includes the network overview and all nonhome pages: My devices (`/dashboard`), Shared insights (`/insights`), Sign in (`/login`), and the technical reference. A shared light shell puts client tasks first and supplies a persistent Back to network link. This is a visual-design record; `docs/DESIGN.md` remains the authoritative architecture and threat model. The overview describes simulated activity, not measured service health. Sign-in retains the existing wallet authentication; presentation changes do not demonstrate completed backend integration.",
+    "keyCharacteristics": [
+      "Light surfaces with subtle borders.",
+      "Plain client task names and a persistent way back to the network.",
+      "A selectable network map with a plain-language inspector.",
+      "Explicit data, chain-read, and chain-write labels.",
+      "A guided walkthrough with an activity feed and simple panels."
+    ],
+    "rules": [
+      {
+        "name": "The Connection Label Rule",
+        "body": "Pair connection colors with written roles and directional arrows; color alone must not explain the network.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "**Do** keep simulation status visible beside the overview heading and activity.",
+      "**Do** describe sends, receives, and blockchain connection in the inspector.",
+      "**Do** preserve visible keyboard focus and selected state.",
+      "**Do** retain client task labels and a visible Back to network link on nonhome pages.",
+      "**Do** use explicit connection descriptions in the compact node list."
+    ],
+    "donts": [
+      "**Don't** present simulated activity as measured connectivity or confirmed real transactions.",
+      "**Don't** imply that the compact list is a linear data pipeline.",
+      "**Don't** put raw telemetry, private keys, or plaintext insight content in overview examples."
+    ]
+  }
+}

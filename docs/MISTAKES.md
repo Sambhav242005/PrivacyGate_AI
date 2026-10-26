@@ -1,3 +1,5 @@
+> **v2 supersession (2026-10-26):** The approved native custom-blockchain design in [V2.md](V2.md) governs new implementation. EVM/wallet/MQTT and incompatible v1 tooling/schema requirements below are historical. Completion requires dated v2 evidence, not the legacy checkboxes.
+
 # MISTAKES.md — Pitfalls, Anti-Patterns and Lessons Log
 
 > **Important:** These are *anticipated risks*, not assertions that project contributors made these mistakes. Add real incidents after reproducing them, with dates, fixes and regression tests.

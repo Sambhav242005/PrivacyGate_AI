@@ -1,3 +1,5 @@
+> **v2 supersession (2026-10-26):** The approved native custom-blockchain design in [V2.md](V2.md) governs new implementation. EVM/wallet/MQTT and incompatible v1 tooling/schema requirements below are historical. Completion requires dated v2 evidence, not the legacy checkboxes.
+
 # DESIGN.md — Architecture, Protocol and Threat Model
 
 ## 1. Architecture overview
@@ -101,7 +103,7 @@ For **each delivery/recipient**:
 3. Compute ECDH shared secret, derive 32-byte AES key via HKDF-SHA256 using domain-separated `info` with `recipient_wallet`, `resource_id`, `event_id`, `policy_version`, `key_epoch`.
 4. Generate random 96-bit nonce; encrypt canonical five-field insight with AES-256-GCM. Bind envelope metadata as authenticated additional data (AAD).
 5. Persist encrypted envelope and necessary **public** metadata only; never persist ephemeral private key or AES session key.
-6. Subscriber uses their X25519 private key to derive AES key and decrypt. Another recipient must fail.
+6. Subscriber uses their X25519 private key to derive AES key and decrypt. Another recipient must fail. The key stays in tab memory; the subscriber may explicitly download a plaintext backup and restore it from a local file. Only the derived public key is sent to the gateway (ADR-014).
 
 A new ephemeral key is used for each envelope; the `key_epoch` increments on revocation for tracking future generations. There is no shared group encryption key in the MVP. Key registration/rotation requires fresh wallet-authenticated proof of control; an API caller cannot replace another wallet's public key.
 
@@ -109,7 +111,7 @@ A new ephemeral key is used for each envelope; the `key_epoch` increments on rev
 
 - Login via wallet challenge; gateway sets short-lived HttpOnly cookie; CSRF token + allowed-origin check for state-changing calls.
 - Owner dashboard: register device, plot detailed local readings, propose permitted fields and expiry, view tx pending/confirmed/synced states, revoke.
-- Subscriber dashboard: register X25519 key, see assigned active resource, poll encrypted insight, decrypt locally and show five-field summary.
+- Subscriber dashboard: explicitly back up and register an X25519 key, see assigned active resource, poll encrypted insight, decrypt locally and show five-field summary. Restore reads the subscriber's user-managed key file locally; the application does not persist or upload private key material.
 - API rechecks rights; visually hiding buttons is insufficient.
 - Avoid chain wallet private-key custody on gateway; user signs contract transactions from the wallet UI.
 

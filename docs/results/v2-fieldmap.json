@@ -1,0 +1,724 @@
+{
+  "base_url": "http://127.0.0.1:3001",
+  "recorded_at": "2026-10-26T16:27:21.500Z",
+  "pages": {
+    "/login": [
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Skip to content",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "PrivacyGate AI",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Network overview",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "My devices",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Shared insights",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Technical reference",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Back to network",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "INPUT",
+        "id": "username",
+        "type": "text",
+        "name": "",
+        "text": "",
+        "placeholder": "",
+        "required": true
+      },
+      {
+        "tag": "INPUT",
+        "id": "password",
+        "type": "password",
+        "name": "",
+        "text": "",
+        "placeholder": "",
+        "required": true
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Sign in securely",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Explore the network overview",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Network overview",
+        "placeholder": "",
+        "required": false
+      }
+    ],
+    "/dashboard": [
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Skip to content",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "PrivacyGate AI",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Network overview",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "My devices",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Shared insights",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Technical reference",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Back to network",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Sign out",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Refresh",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Select",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Select",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Select",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Select",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Select",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Select",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Select",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Select",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Select",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Selected",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "INPUT",
+        "id": "device-name",
+        "type": "text",
+        "name": "",
+        "text": "",
+        "placeholder": "",
+        "required": true
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Add device",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Refresh readings",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "SELECT",
+        "id": "simulation-mode",
+        "type": "select-one",
+        "name": "",
+        "text": "Normal signed readingAnomaly readingTampered signatureReplay packetStale timestampMalforme",
+        "placeholder": "",
+        "required": false,
+        "options": [
+          {
+            "value": "normal",
+            "text": "Normal signed reading"
+          },
+          {
+            "value": "anomaly",
+            "text": "Anomaly reading"
+          },
+          {
+            "value": "tampered",
+            "text": "Tampered signature"
+          },
+          {
+            "value": "replayed",
+            "text": "Replay packet"
+          },
+          {
+            "value": "stale",
+            "text": "Stale timestamp"
+          },
+          {
+            "value": "malformed",
+            "text": "Malformed reading"
+          },
+          {
+            "value": "wrong-device",
+            "text": "Wrong device key"
+          }
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "id": "simulation-count",
+        "type": "number",
+        "name": "",
+        "text": "",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Run simulation",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "SELECT",
+        "id": "reader-account",
+        "type": "select-one",
+        "name": "",
+        "text": "Choose accountreaderreader2",
+        "placeholder": "",
+        "required": true,
+        "options": [
+          {
+            "value": "",
+            "text": "Choose account"
+          },
+          {
+            "value": "55ed9540-0f87-410d-b9d0-62993c57ca62",
+            "text": "reader"
+          },
+          {
+            "value": "33448355-1483-404e-a577-7d820dccf9ed",
+            "text": "reader2"
+          }
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "id": "expires",
+        "type": "number",
+        "name": "",
+        "text": "",
+        "placeholder": "",
+        "required": true
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Grant access",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Refresh access list",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Network overview",
+        "placeholder": "",
+        "required": false
+      }
+    ],
+    "/insights": [
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Skip to content",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "PrivacyGate AI",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Network overview",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "My devices",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Shared insights",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Technical reference",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Back to network",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Sign out",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Refresh",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "INPUT",
+        "id": "resource-id",
+        "type": "text",
+        "name": "",
+        "text": "",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Replace viewing key",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "INPUT",
+        "id": "backup-file",
+        "type": "file",
+        "name": "",
+        "text": "",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Network overview",
+        "placeholder": "",
+        "required": false
+      }
+    ],
+    "/": [
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Skip to network",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "PrivacyGateAI",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Network overview",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "My devices",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Shared insights",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Sign in",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "Sign in",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "IoT sensorCompressor ASends signed packets to the gatewayDemo component",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Local processingAI gatewayReads chain permission; sends to owner or readerDemo component",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Custom local chainPermission registryReturns permission state to the gatewayDemo component",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Controls accessDevice ownerRequests grants and revocations through the gatewayDemo compone",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Insight readerMaintenance partnerReceives encrypted insights from the gatewayDemo componen",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "name": "",
+        "text": "View my devices",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Access allowed",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "After revocation",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Chain offline",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Run walkthrough",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "Next step",
+        "placeholder": "",
+        "required": false
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "submit",
+        "name": "",
+        "text": "",
+        "placeholder": "",
+        "required": false
+      }
+    ]
+  }
+}

@@ -33,6 +33,11 @@ export function hasSessionPrivateKey(): boolean {
   return heldPrivateKey !== null;
 }
 
+/** Return key material only when the user explicitly requests a backup export. */
+export function exportSessionPrivateKeyB64(): string {
+  return bytesToB64(priv());
+}
+
 /** Forget key on logout/unload. Call on pagehide too. */
 export function clearSessionPrivateKey(): void {
   heldPrivateKey?.fill(0);

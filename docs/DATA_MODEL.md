@@ -1,3 +1,5 @@
+> **v2 supersession (2026-10-26):** The approved native custom-blockchain design in [V2.md](V2.md) governs new implementation. EVM/wallet/MQTT and incompatible v1 tooling/schema requirements below are historical. Completion requires dated v2 evidence, not the legacy checkboxes.
+
 # DATA_MODEL.md — Canonical Schemas and Persistence
 
 > **Planned schemas.** Database details may evolve through migrations, but the external DTOs, field semantics, privacy boundaries and test fixtures below are normative for MVP v1.

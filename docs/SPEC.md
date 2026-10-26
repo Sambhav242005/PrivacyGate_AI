@@ -1,3 +1,5 @@
+> **v2 supersession (2026-10-26):** The approved native custom-blockchain design in [V2.md](V2.md) governs new implementation. EVM/wallet/MQTT and incompatible v1 tooling/schema requirements below are historical. Completion requires dated v2 evidence, not the legacy checkboxes.
+
 # SPEC.md — PrivacyGate AI Product Specification
 
 ## 1. Identity and status

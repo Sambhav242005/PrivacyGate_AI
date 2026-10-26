@@ -35,3 +35,6 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Local agent baselines, usage records, and scratch captures
+/work/
+

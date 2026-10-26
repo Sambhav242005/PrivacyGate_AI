@@ -1,3 +1,5 @@
+> **v2 supersession (2026-10-26):** The approved native custom-blockchain design in [V2.md](V2.md) governs new implementation. EVM/wallet/MQTT and incompatible v1 tooling/schema requirements below are historical. Completion requires dated v2 evidence, not the legacy checkboxes.
+
 # DECISIONS.md — Architecture Decision Records (ADRs)
 
 > Records below are **initial project decisions**, not conclusions from completed field experiments. Modify decisions by adding a superseding ADR; do not silently change past rationale.
@@ -106,6 +108,14 @@
 - **Rejected:** Implicit administrative owner reset, contract upgradeability before threat review.
 - **Trade-off:** Production would require owner recovery, transfer, secure upgrade and governance design.
 
+## ADR-014 — Explicit subscriber viewing-key backup
+
+- **Status:** Accepted.
+- **Context:** The subscriber's X25519 private key was held only in tab memory and the setup flow discarded its export value. Closing the tab or signing out made encrypted unread insights unrecoverable.
+- **Decision:** Keep the default key in memory only. Before enrolling a newly generated key, offer a user-initiated plaintext backup download and require the user to confirm they saved it. Provide local file import for restoration; only the derived public key is sent to the gateway. Never store the private key in browser storage or send it to the API.
+- **Rationale:** The subscriber can recover access after closing the tab while retaining control of the secret and avoiding silent browser persistence.
+- **Trade-off:** The backup file is sensitive plaintext. Anyone who obtains it can decrypt insights for that key. If it is lost, access cannot be restored; registering a different key can make unread envelopes encrypted to the previous key unavailable.
+
 ## ADR template for additions
 
 ```markdown
@@ -116,3 +126,6 @@
 - **Alternatives:** Options considered.
 - **Consequences:** Security, privacy, cost, complexity, tests/docs affected.
 ```
+
+## ADR-015 — Native custom-chain MVP (accepted 2026-10-26)
+User approved a single-validator signed hash-linked permission blockchain, password demo accounts, gateway-held owner signing keys, simulated transport, and browser-held reader keys. docs/V2.md supersedes conflicting ADR-002/003/004/007/009/011/013 tooling and identity details while preserving ownership, privacy, cryptography and revocation boundaries. v2 databases are separate, with explicit version checks and no implicit legacy migration. Trusted-service custody, centralized authority, metadata leakage, truncation and compromised-validator limitations are explicit. SQLite native schema versioning supersedes the unimplemented Alembic requirement for this isolated v2 store.

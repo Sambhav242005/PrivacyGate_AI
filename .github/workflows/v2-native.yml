@@ -1,0 +1,45 @@
+name: Native v2 acceptance
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  native:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Provision isolated demo
+        shell: pwsh
+        run: ./infra/scripts/v2/Setup.ps1
+      - name: Formatting, types, security and process tests, web build
+        shell: pwsh
+        run: ./infra/scripts/v2/Smoke.ps1
+      - name: Start production app
+        shell: pwsh
+        run: ./infra/scripts/v2/Start.ps1 -Production
+      - name: Real browser journeys
+        working-directory: apps/web
+        shell: pwsh
+        run: |
+          npx.cmd playwright test e2e/v2.spec.ts --reporter=line
+          if ($LASTEXITCODE -ne 0) { throw 'Browser acceptance failed' }
+      - name: Stop services
+        if: always()
+        shell: pwsh
+        run: ./infra/scripts/v2/Stop.ps1
+      - name: Record evaluation
+        shell: pwsh
+        run: ./infra/scripts/v2/Evaluate.ps1

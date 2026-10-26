@@ -1,3 +1,7 @@
+# Current native v2 evidence
+
+See [2026-10-26-v2-completion.md](2026-10-26-v2-completion.md) for actual executed checks, acceptance mapping, model/benchmark results and limitations. The notes below describe historical v1 requirements.
+
 # docs/results — evidence, not claims
 
 T-01..T-24 are **requirements** (docs/TESTING.md), not passes. Record each run

@@ -1,3 +1,5 @@
+> **v2 supersession (2026-10-26):** The approved native custom-blockchain design in [V2.md](V2.md) governs new implementation. EVM/wallet/MQTT and incompatible v1 tooling/schema requirements below are historical. Completion requires dated v2 evidence, not the legacy checkboxes.
+
 # TASKS.md — Solo-Developer Implementation Roadmap
 
 > **Status:** All tasks below are **planned**. Mark `[x]` only after implementation, passing tests and evidence. Dependencies are explicit so multiple coding agents can safely work in parallel.
@@ -52,7 +54,7 @@
 ## Phase 5 — UI and integration
 
 - [ ] **PG-040 — Owner dashboard.** Enroll machine, show detailed telemetry, create policy draft, send owner-signed wallet tx, show receipt states, revoke. **Depends:** PG-021, PG-023, PG-033, PG-034. **Done:** end-to-end browser scenario.
-- [ ] **PG-041 — Subscriber dashboard.** Login, enroll own encryption public key, request envelopes, client-side decrypt, show permitted insight only. **Depends:** PG-030..PG-033. **Done:** no localStorage secret; T-08/T-09.
+- [ ] **PG-041 — Subscriber dashboard.** Login, explicitly back up and enroll own encryption public key, restore the private key from a user-managed local backup, request envelopes, client-side decrypt, show permitted insight only. **Depends:** PG-030..PG-033. **Done:** no browser-persisted private key; only the public key reaches the API; T-08/T-09.
 - [ ] **PG-042 — Automated E2E test rig.** Start Anvil/MQTT/gateway/simulator/web, provision synthetic wallets, grant/emit/revoke; inject chain outage. **Depends:** PG-040, PG-041. **Done:** T-01..T-24 with command output.
 - [ ] **PG-043 — Security review.** Verify no raw payload in chain/broker/logs/unauthorized HTTP, secret scan, key lifecycle, replay. **Depends:** PG-042. **Done:** T-18 plus documented threat-model checklist.
 - [ ] **PG-044 — Benchmarks and centralized baseline.** Measure p50/p95/p99, model metrics, contract confirmation/revocation delay; compare with simple local ACL variant. **Depends:** PG-042. **Done:** no invented measurements; `docs/results/` report.
@@ -74,3 +76,13 @@ Start PG-001, PG-002, PG-003, PG-020, PG-021, PG-022, PG-010, PG-011, PG-012, PG
 ## Time-box fallback (if academic deadline approaches)
 
 Preserve the core demonstration in this order: signed input → encrypted local storage → deterministic anomaly **baseline** → strict schema → verified chain grant → recipient encryption → revoke denial → minimal UI. Postpone ML-vs-rule benchmark polish, elaborate charts and optional additional sensor types. Never cut permission enforcement or negative tests to save time.
+
+## Native v2 completion gates (supersede legacy runtime tasks)
+- [x] PG-V2-001 — frozen contracts and superseding ADR; docs/V2.md.
+- [x] PG-V2-002 — signed durable custom ledger and fresh client observations.
+- [x] PG-V2-003 — persistent gateway/password sessions/authorization.
+- [x] PG-V2-004 — signed simulator and measured Isolation Forest/baseline.
+- [x] PG-V2-005 — integrated owner/reader recovery journeys.
+- [x] PG-V2-006 — native harness, security evidence, evaluation, reusable demo script.
+
+Evidence for completed native v2 gates: [2026-10-26 execution report](results/2026-10-26-v2-completion.md). Legacy boxes above remain historical requirements; see V2.md for their acceptance replacements.

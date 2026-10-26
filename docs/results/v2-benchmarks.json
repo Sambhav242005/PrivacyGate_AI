@@ -1,0 +1,56 @@
+{
+  "recorded_at": "2026-10-26T16:28:18.931236+00:00",
+  "python": "3.12.13",
+  "os": "Windows-11-10.0.26300-SP0",
+  "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "seed": 2401,
+  "limitation": "Single-host synthetic benchmark, sequential burst load. ACL comparison isolates authorization plus envelope encryption, not total ingest pipeline or equivalent distributed trust.",
+  "measurements": {
+    "grant_http_to_commit": {
+      "n": 10,
+      "unit": "milliseconds",
+      "p50": 21.854000000018914,
+      "p95": 22.891680000026327,
+      "p99": 23.018256000042356
+    },
+    "signed_simulator_through_encrypted_dispatch": {
+      "n": 40,
+      "unit": "milliseconds",
+      "p50": 46.28790000001004,
+      "p95": 49.95858499999599,
+      "p99": 52.869002999963755
+    },
+    "authorized_envelope_http_fetch": {
+      "n": 40,
+      "unit": "milliseconds",
+      "p50": 13.326599999999189,
+      "p95": 14.27823500000045,
+      "p99": 15.735774999993167
+    },
+    "chain_authorization_plus_encryption": {
+      "n": 100,
+      "unit": "milliseconds",
+      "p50": 1.8798000000117554,
+      "p95": 2.339039999981196,
+      "p99": 2.622337999988532
+    },
+    "in_memory_acl_authorization_plus_encryption": {
+      "n": 100,
+      "unit": "milliseconds",
+      "p50": 0.07420000000024629,
+      "p95": 0.08653000000720112,
+      "p99": 0.17073699999002664
+    },
+    "revoke_http_to_observed_denial": {
+      "n": 1,
+      "unit": "milliseconds",
+      "p50": 36.93939999999429,
+      "p95": 36.93939999999429,
+      "p99": 36.93939999999429
+    }
+  },
+  "chain": {
+    "chain_id": "privacygate-local-v2",
+    "genesis_hash": "f000028c93c6b76da2b0beb06a07b48dd93b12a1562e3a877b26f9efe5232a9a"
+  }
+}

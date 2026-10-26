@@ -1,0 +1,57 @@
+{
+  "recorded_at": "2026-10-26T16:28:08.866185+00:00",
+  "git_sha": "f0a5a3297d205c13a659da263921b201a7956e39",
+  "working_tree": "See accompanying run report; SHA alone does not include uncommitted changes",
+  "python": "3.12.13",
+  "os": "Windows-11-10.0.26300-SP0",
+  "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "evaluation": {
+    "model_version": "iforest-synthetic-v2-seed2401",
+    "dataset_version": "synthetic-v2",
+    "training_seed": 2401,
+    "holdout_seeds": [
+      2402,
+      2403
+    ],
+    "training_count": 512,
+    "holdout_count": 384,
+    "normal_count": 256,
+    "anomaly_count": 128,
+    "training_sha256": "d0f0334d101f34960986fa679120d6f91b1b8cf39a77a3beeeac312cd2844549",
+    "fitted_model_sha256": "e45e37163341569de32e3620c2acdc757c840f04f0e30476c56c122cdc4444ca",
+    "estimator_config": {
+      "n_estimators": 128,
+      "contamination": 0.02,
+      "random_state": 2401,
+      "n_jobs": 1,
+      "max_samples": "auto"
+    },
+    "offset": -0.6051523738420815,
+    "results": {
+      "isolation_forest": {
+        "tp": 128,
+        "fp": 5,
+        "tn": 251,
+        "fn": 0,
+        "precision": 0.9624060150375939,
+        "recall": 1.0,
+        "f1": 0.9808429118773946,
+        "false_positive_rate": 0.01953125,
+        "false_negative_rate": 0.0
+      },
+      "rule_baseline": {
+        "tp": 128,
+        "fp": 0,
+        "tn": 256,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0,
+        "false_negative_rate": 0.0
+      }
+    },
+    "duration_seconds": 0.07873829999999771,
+    "limitation": "Synthetic separable distributions; not field accuracy."
+  }
+}

@@ -1,63 +1,14 @@
 "use client";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ApiError, api } from "@/lib/api";
-import { hasInjectedWallet, loginWithWallet } from "@/lib/wallet";
+import { useRouter } from "next/navigation";
+import { apiV2, logoutCurrentSession, restoreSession, setCsrf, clearCsrf, type Session } from "@/lib/api-v2";
+import { clearReaderKey } from "@/lib/crypto-v2";
 
 export default function LoginPage() {
-  const [wallet, setWallet] = useState<string | null>(null);
-  const [info, setInfo] = useState<string | null>(null);
-  const [err, setErr] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
-
-  async function login() {
-    setErr(null);
-    setInfo(null);
-    setBusy(true);
-    try {
-      if (!hasInjectedWallet()) throw new Error("No browser wallet detected.");
-      const addr = await loginWithWallet(api);
-      setWallet(addr);
-      setInfo(`Signed in as ${addr}. Session is a cookie, not localStorage.`);
-    } catch (e) {
-      setErr(e instanceof ApiError ? `${e.code}: ${e.message}` : String(e));
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function logout() {
-    try {
-      await api.logout();
-    } catch {
-      /* already gone */
-    }
-    setWallet(null);
-    setInfo("Signed out.");
-  }
-
-  return (
-    <>
-      <header className="hero">
-        <h1>Owner <em>login</em></h1>
-        <p>Wallet challenge (EIP-191). The server sets an HttpOnly session cookie.</p>
-      </header>
-      <section className="card">
-        <h2><span className="step">1</span> Connect + sign</h2>
-        {wallet ? (
-          <div className="row">
-            <span className="pill ok">CONNECTED</span>
-            <span className="addr">{wallet}</span>
-            <button className="ghost" onClick={logout}>Sign out</button>
-          </div>
-        ) : (
-          <button onClick={login} disabled={busy}>{busy ? "Waiting for signature…" : "Connect wallet and sign in"}</button>
-        )}
-        {info && <p className="muted">{info}</p>}
-        {err && <div className="err" role="alert"><code>!</code> {err}</div>}
-        <p className="muted"><Link href="/(owner)/dashboard">Continue to owner dashboard →</Link></p>
-      </section>
-    </>
-  );
+  const router=useRouter(); const [session,setSession]=useState<Session|null>(null); const [username,setUsername]=useState(""); const [password,setPassword]=useState(""); const [error,setError]=useState(""); const [busy,setBusy]=useState(false); const [loading,setLoading]=useState(true);
+  useEffect(()=>{let alive=true; restoreSession().then(s=>{if(alive)setSession(s)}).catch(()=>{if(alive)setError("Sign-in service is unavailable. Check that the local gateway is running, then retry.")}).finally(()=>{if(alive)setLoading(false)}); return()=>{alive=false}},[]);
+  async function login(e:React.FormEvent){e.preventDefault();setBusy(true);setError("");try{const s=await apiV2.login(username.trim(),password);if(session&&session.account_id!==s.account_id)clearReaderKey();setCsrf(s.csrf_token);setSession(s);setPassword("");router.push(s.role==="owner"?"/dashboard":"/insights")}catch(e){setError(e instanceof Error?e.message:"Could not sign in.")}finally{setBusy(false)}}
+  async function logout(){clearReaderKey();setError("");try{await logoutCurrentSession();clearCsrf();setSession(null)}catch{setError("Private viewing key cleared, but the gateway could not confirm sign-out. Your session remains active; retry sign-out when the gateway is reachable.")}}
+  return <><header className="hero"><h1>Welcome to your workspace</h1><p>Sign in to manage equipment or view insights shared with your account.</p></header><div className="sign-in-layout"><section className="card sign-in-card"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><path d="m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6zM8 12l3 3 5-6"/></svg><h2>{session?`Signed in as ${session.username}`:"Sign in securely"}</h2><p className="sub">Use the account credentials provisioned for this local demo.</p>{loading?<p role="status">Checking your session…</p>:session?<><p className="muted">Account role: {session.role}</p><div className="row"><Link className="button-link" href={session.role==="owner"?"/dashboard":"/insights"}>{session.role==="owner"?"Open my devices":"Open shared insights"}</Link><button className="ghost" onClick={logout}>Sign out</button></div></>:<form onSubmit={login}><label htmlFor="username">Username<input id="username" autoComplete="username" value={username} onChange={e=>setUsername(e.target.value)} required /></label><label htmlFor="password">Password<input id="password" type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} required /></label><button className="full-width" disabled={busy}>{busy?"Signing in…":"Sign in securely"}</button><p className="input-hint">Accounts are created at gateway setup. Use the runtime credentials shown by the local setup command.</p></form>}{error&&<div className="err" role="alert">{error}</div>}<details className="setup-details"><summary>How sign-in works</summary><p className="muted">The gateway checks your password and issues an HttpOnly session cookie. Permission checks still happen on each protected request.</p></details></section><aside className="sign-in-guide"><h2>One workspace.<br/>The right access for you.</h2><div><strong>Manage your equipment</strong><p>Review detailed sensor readings and choose which readers can receive insights.</p></div><div><strong>Review shared insights</strong><p>Decrypt only updates authorized for your account, in this browser.</p></div><Link href="/">Explore the network overview</Link></aside></div></>
 }
