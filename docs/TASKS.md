@@ -96,3 +96,5 @@ Evidence for completed native v2 gates: [2026-10-26 execution report](results/20
   Acceptance: demonstrated improvement on a seeded distribution shift; reject
   unauthorized review, overlap, stale records and non-improving candidates;
   preserve five-field encryption, revocation and fail-closed authorization.
+
+PG-V2-006 browser timing follow-up: [2026-10-28 local repair evidence](results/2026-10-28-browser-acceptance-fix.md). Reproduced races fixed and local checks pass; remote reader-login timeout remains a CI verification gate.

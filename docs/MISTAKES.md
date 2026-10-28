@@ -73,3 +73,12 @@
 - Owner wallet loss and transfer are out of MVP; simulate with disposable test wallets.
 - A local CPU anomaly model trained on synthetic data cannot establish field accuracy.
 - The current design blocks queued unread envelopes on revocation; anything already obtained cannot be revoked.
+
+### 2026-10-28 ? INC-V2-002 ? Acceptance journey timing races
+
+- **Task:** PG-V2-006, following failed Actions run 40644109637 at commit 4cfe5a0.
+- **Observed locally:** the live browser journey could open an unchanged envelope before a tampered refresh completed. Repeated runs also denied the newly registered resource because a late device-list refresh replaced the current selection.
+- **Cause:** assertions on existing buttons did not prove new responses had rendered; dashboard refresh captured an empty resource and could overwrite a later registration selection.
+- **Fix:** clear the test inbox before loading each tampered envelope; inject a response delay to exercise the race. Dashboard refresh uses the current selection and ignores superseded refreshes. Its callback no longer changes whenever selection changes.
+- **Regression:** e2e/workspace.spec.ts reproduces a delayed initial refresh; it failed with Select instead of Selected before the fix. Both browser tests passed three repetitions after the fix.
+- **Unresolved evidence:** the original Actions reader-login timeout did not reproduce locally. The fresh-context login helper now asserts the /v2/me 401 response with a 15-second bound, then checks the login form and role destination. This replaces competing unbounded waits; it does not establish the cause of that remote timeout.

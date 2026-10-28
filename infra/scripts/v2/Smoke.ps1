@@ -19,7 +19,7 @@ try {
             if ($LASTEXITCODE -ne 0) { throw "Web $check failed" }
         }
         if ($IncludeBrowser) {
-            & npx.cmd playwright test e2e/v2.spec.ts --reporter=line
+            & npx.cmd playwright test e2e/v2.spec.ts e2e/workspace.spec.ts --reporter=line
             if ($LASTEXITCODE -ne 0) { throw 'Real browser acceptance failed' }
         }
     } finally { Pop-Location }

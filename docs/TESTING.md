@@ -114,3 +114,14 @@ Measure independently: MQTT receive→stored, stored→AI, AI→allowed encrypte
 ## Failure reports
 
 Store `docs/results/YYYY-MM-DD-run-id.md` with git SHA, OS/Python/Node/Foundry versions, Anvil chain ID, seed, model hash, test commands, log excerpt (redacted), results and known limitations. Log recurring errors in `MISTAKES.md`; do not silently weaken tests to obtain a pass.
+
+## Browser acceptance timing regressions (PG-V2-006)
+
+Run `npx.cmd playwright test e2e/v2.spec.ts e2e/workspace.spec.ts --reporter=line`
+from apps/web against the native production stack. The workspace test delays the
+initial device refresh while equipment is registered; the new equipment must stay
+selected. The live test delays tampered inbox responses and requires rejection of
+each modified envelope before loading the next. Fresh browser contexts must see
+HTTP 401 from /v2/me before the login form, then reach the correct role page.
+Do not upload browser traces, runtime credentials, key backups, or owner screenshots
+as public CI artifacts. Session diagnostics assert status codes only.

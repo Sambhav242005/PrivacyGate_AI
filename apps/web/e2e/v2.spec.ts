@@ -5,7 +5,21 @@ import { join } from "node:path";
 
 type Credential={account_id:string;username:string;password:string;role:"owner"|"reader"};
 async function runtimeCredentials():Promise<Credential[]|null>{try{return JSON.parse(await readFile(join(process.cwd(),"../../var/v2/credentials.json"),"utf8")) as Credential[]}catch{return null}}
-async function signIn(page:Page, credential:Credential){await page.goto("/login");const username=page.getByLabel("Username"),signOut=page.getByRole("button",{name:"Sign out"});const state=await Promise.race([username.waitFor({state:"visible"}).then(()=>"form" as const),signOut.waitFor({state:"visible"}).then(()=>"session" as const)]);if(state==="session"){await signOut.click();await username.waitFor({state:"visible"})}await username.fill(credential.username);await page.getByLabel("Password").fill(credential.password);await page.getByRole("button",{name:"Sign in securely"}).click()}
+async function signIn(page: Page, credential: Credential) {
+ await test.step(`Sign in as ${credential.role}`, async () => {
+  // Each caller owns a fresh browser context: an existing session is a failure.
+  const [sessionResponse] = await Promise.all([
+   page.waitForResponse(response => new URL(response.url()).pathname === "/v2/me", {timeout: 15_000}),
+   page.goto("/login"),
+  ]);
+  expect(sessionResponse.status(), "A fresh browser must receive an unauthenticated session response").toBe(401);
+  await expect(page.getByLabel("Username")).toBeVisible({timeout: 15_000});
+  await page.getByLabel("Username").fill(credential.username);
+  await page.getByLabel("Password").fill(credential.password);
+  await page.getByRole("button", {name: "Sign in securely"}).click();
+  await expect(page).toHaveURL(credential.role === "owner" ? /dashboard/ : /insights/);
+ });
+}
 
 test("v2 live end-to-end: signed simulation, reader key restore, grant, decrypt, revoke",async({browser})=>{
  test.setTimeout(120_000);
@@ -21,10 +35,10 @@ test("v2 live end-to-end: signed simulation, reader key restore, grant, decrypt,
   await ownerPage.getByLabel("Reader account").selectOption(reader!.account_id);await ownerPage.getByRole("button",{name:"Grant access"}).click();await expect(ownerPage.getByRole("status")).toContainText("Grant confirmed at block");
   await ownerPage.getByLabel("Simulation case").selectOption("anomaly");await ownerPage.getByRole("button",{name:"Run simulation"}).click();await expect(ownerPage.getByRole("status")).toContainText("insight deliveries",{timeout:30000});
   await readerPage.getByLabel("Equipment reference").fill(resource!);const open=readerPage.getByRole("button",{name:"Open insight"}).first();await expect(open).toBeVisible({timeout:30000});for(const field of ["nonce_b64","aad_b64","ciphertext_b64","key_epoch"]){
-   await readerPage.route("**/v2/insights?*",async route=>{const response=await route.fetch();const body=await response.json();const envelope={...body.items[0]};if(field==="key_epoch"){envelope.key_epoch+=1}else{const raw=Buffer.from(envelope[field],"base64");raw[0]^=1;envelope[field]=raw.toString("base64")}await route.fulfill({response,json:{...body,items:[envelope]}})});
-   await readerPage.getByRole("button",{name:"Refresh",exact:true}).click();await open.click();await expect(readerPage.locator(".err[role=alert]")).toBeVisible();await expect(readerPage.getByText("MACHINE_ANOMALY",{exact:true})).toHaveCount(0);await readerPage.unroute("**/v2/insights?*");
+   await readerPage.route("**/v2/insights?*",async route=>{const response=await route.fetch();const body=await response.json();const envelope={...body.items[0]};if(field==="key_epoch"){envelope.key_epoch+=1}else{const raw=Buffer.from(envelope[field],"base64");raw[0]^=1;envelope[field]=raw.toString("base64")}await new Promise(resolve=>setTimeout(resolve,250));await route.fulfill({response,json:{...body,items:[envelope]}})});
+   await readerPage.getByLabel("Equipment reference").fill("");await expect(open).toHaveCount(0);await readerPage.getByLabel("Equipment reference").fill(resource!);await open.click();await expect(readerPage.locator(".err[role=alert]")).toBeVisible();await expect(readerPage.getByText("MACHINE_ANOMALY",{exact:true})).toHaveCount(0);await readerPage.unroute("**/v2/insights?*");
   }
-  await readerPage.getByRole("button",{name:"Refresh",exact:true}).click();await open.click();await expect(readerPage.getByText("MACHINE_ANOMALY")).toBeVisible();const readerHtml=await readerPage.locator("#page-content").textContent();expect(readerHtml).not.toContain("temp_c");expect(readerHtml).not.toContain("vibration_mm_s");expect(readerHtml).not.toContain("rpm");
+  await readerPage.getByLabel("Equipment reference").fill("");await expect(open).toHaveCount(0);await readerPage.getByLabel("Equipment reference").fill(resource!);await open.click();await expect(readerPage.getByText("MACHINE_ANOMALY")).toBeVisible();const readerHtml=await readerPage.locator("#page-content").textContent();expect(readerHtml).not.toContain("temp_c");expect(readerHtml).not.toContain("vibration_mm_s");expect(readerHtml).not.toContain("rpm");
   await ownerPage.getByRole("button",{name:"Revoke future access"}).click();await expect(ownerPage.getByRole("status")).toContainText("Revocation confirmed at block");await readerPage.getByRole("button",{name:"Refresh"}).click();await expect(readerPage.locator(".err[role=alert]")).toContainText(/denied|permission|access|not allowed/i,{timeout:30000});
  }finally{await Promise.allSettled([ownerContext?.close(),readerContext?.close()]);await rm(dir,{recursive:true,force:true})}
 });

@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { apiV2, logoutCurrentSession, restoreSession, type Account, type Device, type Policy, type Receipt, type Session, type Telemetry } from "@/lib/api-v2";
 import { clearReaderKey } from "@/lib/crypto-v2";
 type PendingOp={id:string;kind:"device"|"grant"|"revoke";payload:Record<string,any>};
@@ -10,7 +10,14 @@ function ReceiptDetails({receipt,title}:{receipt:Receipt;title:string}){
 
 export default function OwnerDashboard(){
  const [session,setSession]=useState<Session|null>(null),[devices,setDevices]=useState<Device[]>([]),[accounts,setAccounts]=useState<Account[]>([]),[policies,setPolicies]=useState<Policy[]>([]),[rows,setRows]=useState<Telemetry[]>([]),[resource,setResource]=useState(""),[nextCursor,setNextCursor]=useState<string|null>(null),[registrationReceipt,setRegistrationReceipt]=useState<Receipt|null>(null),[name,setName]=useState(""),[reader,setReader]=useState(""),[expiry,setExpiry]=useState(()=>String(Math.floor(Date.now()/1000)+7*86400)),[expiryMinimum]=useState(()=>Math.floor(Date.now()/1000)+60),[simMode,setSimMode]=useState<"normal"|"anomaly"|"tampered"|"replayed"|"stale"|"malformed"|"wrong-device">("normal"),[simCount,setSimCount]=useState(1),[error,setError]=useState(""),[note,setNote]=useState(""),[busy,setBusy]=useState(""),[pendingOp,setPendingOp]=useState<PendingOp|null>(null);
- const refresh=useCallback(async()=>{const [d,a]=await Promise.all([apiV2.devices(),apiV2.accounts()]);setDevices(d.items);setAccounts(a.items);if(!resource&&d.items[0])setResource(d.items[0].resource_id)},[resource]);
+ const refreshGeneration=useRef(0);
+ const refresh=useCallback(async()=>{
+  const generation=++refreshGeneration.current;
+  const [d,a]=await Promise.all([apiV2.devices(),apiV2.accounts()]);
+  if(generation!==refreshGeneration.current)return;
+  setDevices(d.items);setAccounts(a.items);
+  setResource(current=>current||d.items[0]?.resource_id||"");
+ },[]);
  useEffect(()=>{let alive=true;restoreSession().then(async s=>{if(!alive)return;setSession(s);if(s?.role==="owner"){try{const raw=sessionStorage.getItem(`pg-v2-operation:${s.account_id}`);if(raw)setPendingOp(JSON.parse(raw) as PendingOp)}catch{}try{await refresh()}catch(e){if(alive)setError(e instanceof Error?e.message:"Gateway unavailable.")}}}).catch(e=>{if(alive)setError(e instanceof Error?e.message:"Gateway unavailable.")});return()=>{alive=false}},[refresh]);
  function keepOperation(op:PendingOp|null){setPendingOp(op);if(!session)return;const k=`pg-v2-operation:${session.account_id}`;if(op)sessionStorage.setItem(k,JSON.stringify(op));else sessionStorage.removeItem(k)}
  async function work(key:string,fn:()=>Promise<void>){setBusy(key);setError("");setNote("");try{await fn()}catch(e){setError(e instanceof Error?e.message:"Request failed. The gateway may be unavailable; retry when it is reachable.")}finally{setBusy("")}}

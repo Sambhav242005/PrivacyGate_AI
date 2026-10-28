@@ -36,7 +36,7 @@ jobs:
             ./infra/scripts/v2/Start.ps1 -Production
             Push-Location apps/web
             try {
-              npx.cmd playwright test e2e/v2.spec.ts --reporter=line
+              npx.cmd playwright test e2e/v2.spec.ts e2e/workspace.spec.ts --reporter=line
               if ($LASTEXITCODE -ne 0) { throw 'Browser acceptance failed' }
             } finally { Pop-Location }
           } finally {
