@@ -2,7 +2,7 @@
 
 **Blockchain-Based Privacy-Preserving IoT Intelligence Exchange**
 
-Group 24 · Sambhav Surana · B.Tech, Artificial Intelligence & Data Science
+Group 21 · Sambhav Surana · B.Tech, Artificial Intelligence & Data Science
 
 Guide: Prof. Rohit Choubey
 
@@ -98,6 +98,7 @@ Keep the reader backup private. Closing a tab or signing out clears its memory k
 ### Presentation and recorded demo
 
 - [10-slide academic project presentation](docs/presentations/PrivacyGate_AI_Academic.pptx) — formal project overview with architecture, methodology, results and presenter notes.
+- [Two-minute presentation speech](docs/presentations/SPEECH.md)
 - [Recorded native v2 demonstration](docs/results/demo-privacygate-v2.webm)
 - [Reader view screenshot](docs/results/playwright/v2-demo-reader.png)
 

@@ -5,7 +5,7 @@
 ## 1. Identity and status
 
 - **Title:** PrivacyGate AI — Blockchain-Based Privacy-Preserving IoT Intelligence Exchange
-- **Group:** 24 | **Student:** Sambhav Surana | **Enrollment:** 23100BTCSAII14318
+- **Group:** 21 | **Student:** Sambhav Surana | **Enrollment:** 23100BTCSAII14318
 - **Guide:** Prof. Rohit Choubey | **Program:** B.Tech, Artificial Intelligence & Data Science
 - **Stage:** proposed academic MVP; features remain unimplemented until tested.
 - **Project principle:** share minimum useful **insight**, not unrestricted raw device data.

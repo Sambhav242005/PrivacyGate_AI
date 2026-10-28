@@ -1,6 +1,6 @@
 # AGENTS.md — PrivacyGate AI Coding-Agent Instructions
 
-> **Authority:** This file governs work by coding agents in this repository. It describes the *proposed* project; do not report planned features as implemented. Based on the Group 24 PrivacyGate AI academic synopsis.
+> **Authority:** This file governs work by coding agents in this repository. It describes the *proposed* project; do not report planned features as implemented. Based on the Group 21 PrivacyGate AI academic synopsis.
 
 ## Mission
 
