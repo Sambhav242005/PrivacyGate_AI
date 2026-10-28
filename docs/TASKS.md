@@ -86,3 +86,13 @@ Preserve the core demonstration in this order: signed input → encrypted local 
 - [x] PG-V2-006 — native harness, security evidence, evaluation, reusable demo script.
 
 Evidence for completed native v2 gates: [2026-10-26 execution report](results/2026-10-26-v2-completion.md). Legacy boxes above remain historical requirements; see V2.md for their acceptance replacements.
+
+## Reviewed model learning
+
+- [ ] **PG-V2-007 — Improvement through reviewed batch retraining.** Depends on
+  PG-V2-003/004/006. Local operator command, owner-scoped encrypted retained
+  readings, disjoint review split, candidate/incumbent/baseline evaluation,
+  regression gate, encrypted versioned recipes, restart loading and rollback.
+  Acceptance: demonstrated improvement on a seeded distribution shift; reject
+  unauthorized review, overlap, stale records and non-improving candidates;
+  preserve five-field encryption, revocation and fail-closed authorization.

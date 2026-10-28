@@ -15,7 +15,8 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey,
 from cryptography.hazmat.primitives.asymmetric.x25519 import X25519PrivateKey, X25519PublicKey
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-from .model import MODEL_VERSION, AnomalyModel
+from .learning import ModelStore
+from .model import AnomalyModel
 from .repository import Repository
 from .schemas import SignedReading, iso_now, resource_string, uuid_string
 from .security import b64, canonical, digest, encrypt_envelope, hash_password, unb64
@@ -103,6 +104,10 @@ class Gateway:
             )
         self.chain = ledger_client
         self.model = AnomalyModel()
+        self.learned_models = ModelStore(Path(self.config["runtime_root"]), self.raw_cipher)
+        # Snapshot approved models at startup. Activation/rollback takes a restart.
+        for device in self.repo.all("SELECT resource_id FROM devices WHERE registered=1"):
+            self.learned_models.select(device["resource_id"], self.model)
         self._signer_locks: dict[str, threading.RLock] = {}
         self._device_locks: dict[str, threading.RLock] = {}
         self._locks_guard = threading.Lock()
@@ -605,7 +610,8 @@ class Gateway:
                     ciphertext,
                 ),
             )
-        severity = self.model.classify(raw)
+        model = self.learned_models.select(reading.resource_id, self.model)
+        severity = model.classify(raw)
         if severity is None:
             return 0
         insight = {
@@ -613,7 +619,7 @@ class Gateway:
             "event_type": "MACHINE_ANOMALY",
             "severity": severity,
             "observed_at": reading.issued_at,
-            "model_version": MODEL_VERSION,
+            "model_version": model.version,
         }
         deliveries = 0
         policies = self.repo.all(

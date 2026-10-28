@@ -25,8 +25,9 @@ def rule_baseline(values):
 
 
 class AnomalyModel:
-    def __init__(self):
-        self.training = synthetic(2401)
+    def __init__(self, training=None, version: str = MODEL_VERSION):
+        self.training = synthetic(2401) if training is None else np.asarray(training, dtype=float)
+        self.version = version
         self.model = IsolationForest(
             n_estimators=128, contamination=0.02, random_state=2401, n_jobs=1
         ).fit(self.training)

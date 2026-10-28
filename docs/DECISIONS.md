@@ -129,3 +129,25 @@
 
 ## ADR-015 — Native custom-chain MVP (accepted 2026-10-26)
 User approved a single-validator signed hash-linked permission blockchain, password demo accounts, gateway-held owner signing keys, simulated transport, and browser-held reader keys. docs/V2.md supersedes conflicting ADR-002/003/004/007/009/011/013 tooling and identity details while preserving ownership, privacy, cryptography and revocation boundaries. v2 databases are separate, with explicit version checks and no implicit legacy migration. Trusted-service custody, centralized authority, metadata leakage, truncation and compromised-validator limitations are explicit. SQLite native schema versioning supersedes the unimplemented Alembic requirement for this isolated v2 store.
+
+## ADR-016 — Reviewed local batch learning (2026-10-28)
+
+- **Status:** Accepted within the requested model-improvement feature.
+- **Decision:** Retrain a resource-specific Isolation Forest only through a local
+  operator command using owner-reviewed, retained encrypted readings. Train on
+  reviewed normal examples plus the original seeded normal set. Compare with the
+  incumbent and rule baseline on separate labeled validation examples. Promotion
+  requires strictly better validation F1, no precision/recall/FPR regression, and
+  no regression on the fixed synthetic holdout. Explicit activation and a gateway
+  restart apply an approved version. Rollback restores the previous recipe or
+  original seeded model.
+- **Persistence:** Keep bounded JSON training recipes encrypted with the existing
+  raw-data AES-GCM key and resource-bound context in the protected runtime root.
+  Refit deterministically with the exact installed scikit-learn version. No
+  pickle/joblib or new key custody. Both active and previous recipes expire no
+  later than their oldest reviewed source reading's seven-day retention.
+- **Boundaries:** No public HTTP routes, new database schema, autonomous labels,
+  permission changes or changes to reader fields. The operator already has local
+  gateway secrets; username selection is resource scoping, not a new host security
+  boundary. More data does not guarantee improvement. Promotion validation is not
+  an unbiased final test, especially after repeated attempts.

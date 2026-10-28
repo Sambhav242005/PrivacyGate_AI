@@ -4,6 +4,25 @@
 
 > Tests described here are **requirements**, not passed test results. Report actual executions separately under `docs/results/`.
 
+## Reviewed learning verification (PG-V2-007)
+
+From repository root:
+
+```powershell
+uv run --locked pytest apps/gateway/tests/v2 tests/v2 -q
+uv run --locked ruff check apps/gateway/src/privacygate_v2 apps/gateway/tests/v2 infra/scripts/v2 tests/v2
+uv run --locked ruff format --check apps/gateway/src/privacygate_v2 apps/gateway/tests/v2 infra/scripts/v2 tests/v2
+uv run --locked mypy apps/gateway/src/privacygate_v2
+```
+
+Learning tests use isolated temporary encrypted databases. They cover seeded
+distribution shift, independent validation, non-improving activation rejection,
+owner/resource scope, missing/expired examples, feature overlap, encrypted recipe
+integrity, retention, writer contention, version mismatch, restart and rollback.
+Gateway integration exercises the learned version with actual permission-ledger
+state, recipient decryption, raw-data denial, revocation and a chain outage.
+See [LEARNING.md](LEARNING.md) for the operator workflow and evaluation limits.
+
 ## Test layers
 
 | Layer | Tool | Scope |

@@ -124,6 +124,16 @@ Use the `PG_WEB_URL` override for browser tests when using alternate ports. The 
 
 ## Recorded results
 
+### Improving the model over time
+
+The local [reviewed retraining workflow](docs/LEARNING.md) lets an operator label
+retained readings, evaluate a resource-specific candidate against the incumbent
+and rule baseline, and explicitly activate it if validation F1 improves without
+precision/recall or synthetic regression losses. Encrypted versioned recipes load
+on restart, expire within seven days of source collection, and support rollback.
+This is controlled batch learning; incoming packets do not automatically retrain
+the model. Historical measurements below remain results for the original model.
+
 These are retained results from **26 October 2026**, not a fresh run on every checkout. The execution report records 28 Python tests passing and a final browser run with 11 passed cases and one optional case skipped. See the report for command scope and provenance.
 
 The model trained on 512 synthetic normal samples and used a disjoint holdout of 256 normal and 128 anomalous samples.

@@ -205,6 +205,73 @@ def test_operation_retry_is_exact_and_conflicts(runtime):
     assert owner.get(f"/v2/operations/{operation_id}").json()["status"] == "COMMITTED"
 
 
+def test_reviewed_model_version_and_authorization_after_restart(runtime, monkeypatch):
+    import sklearn
+    from privacygate_v2.learning import ModelStore
+    from privacygate_v2.model import MODEL_VERSION, AnomalyModel, synthetic
+
+    app, config, (owner, reader, _), ids, _ledger = runtime
+    resource = device(owner)
+    private = enroll(reader)
+    policy = grant(owner, resource, ids[1])
+    gateway = app.state.gateway
+    # Existing worker has already snapshotted the default for this resource.
+    assert gateway.learned_models.select(resource, gateway.model).version == MODEL_VERSION
+    training = synthetic(6001).tolist()
+    bundle = {
+        "version": ModelStore.version(training),
+        "training": training,
+        "expires_at": int(time.time()) + 3600,
+        "sklearn_version": sklearn.__version__,
+    }
+    gateway.learned_models.promote(resource, bundle, MODEL_VERSION)
+    assert gateway.learned_models.select(resource, gateway.model).version == MODEL_VERSION
+    # A new worker loads the encrypted recipe without changing existing sessions.
+    restarted = create_app(config, gateway.chain)
+    with TestClient(restarted, headers=dict(owner.headers)) as new_owner:
+        new_owner.cookies.update(owner.cookies)
+        result = new_owner.post(
+            "/v2/simulator", json={"resource_id": resource, "mode": "anomaly", "count": 1}
+        )
+        assert result.json() == {"accepted": 1, "rejected": 0, "deliveries": 1}, result.text
+        envelope = reader.get("/v2/insights", params={"resource_id": resource}).json()["items"][0]
+        insight = decrypt(envelope, private)
+        assert insight["model_version"] == bundle["version"]
+        assert set(insight) == {
+            "event_id",
+            "event_type",
+            "severity",
+            "observed_at",
+            "model_version",
+        }
+        assert reader.get(f"/v2/resources/{resource}/telemetry").status_code == 403
+        actual_state = gateway.chain.state
+
+        def unavailable(*args):
+            raise OSError("unreachable synthetic validator")
+
+        monkeypatch.setattr(gateway.chain, "state", unavailable)
+        result = new_owner.post(
+            "/v2/simulator", json={"resource_id": resource, "mode": "anomaly", "count": 1}
+        )
+        assert result.json() == {"accepted": 1, "rejected": 0, "deliveries": 0}
+        denied = reader.get("/v2/insights", params={"resource_id": resource})
+        assert denied.status_code == 503 and "ciphertext_b64" not in denied.text
+        monkeypatch.setattr(gateway.chain, "state", actual_state)
+        assert owner.post(f"/v2/policies/{policy['policy_id']}/revoke", json={}).status_code == 200
+        assert reader.get("/v2/insights", params={"resource_id": resource}).status_code == 403
+        # After revocation an anomaly still ingests but creates no reader delivery.
+        result = new_owner.post(
+            "/v2/simulator", json={"resource_id": resource, "mode": "anomaly", "count": 1}
+        )
+        assert result.json() == {"accepted": 1, "rejected": 0, "deliveries": 0}
+    other = "0x" + "c" * 64
+    assert (
+        restarted.state.gateway.learned_models.select(other, AnomalyModel()).version
+        == MODEL_VERSION
+    )
+
+
 def test_model_holdout_and_unknown_database(tmp_path):
     result = evaluate_model()
     assert result["holdout_count"] == 384
